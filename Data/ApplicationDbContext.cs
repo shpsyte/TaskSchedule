@@ -4,10 +4,15 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TaskSchedule.Domain;
 
 namespace TaskSchedule.Data {
   public class ApplicationDbContext : IdentityDbContext<IdentityUser> {
-    public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) { }
+    public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) {
+
+    }
+
+    public DbSet<UserSetting> UserSetting { get; set; }
 
     protected override void OnModelCreating (ModelBuilder builder) {
       base.OnModelCreating (builder);
@@ -25,6 +30,7 @@ namespace TaskSchedule.Data {
       builder.Entity<IdentityUserLogin<string>> ().HasKey (a => new { a.UserId, a.ProviderKey });
       builder.Entity<IdentityRoleClaim<string>> ().HasKey (a => new { a.RoleId, a.Id });
       builder.Entity<IdentityUserToken<string>> ().HasKey (a => new { a.UserId });
+
     }
   }
 

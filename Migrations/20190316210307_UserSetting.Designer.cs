@@ -9,8 +9,8 @@ using TaskSchedule.Data;
 namespace TaskSchedule.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190316174319_Identity")]
-    partial class Identity
+    [Migration("20190316210307_UserSetting")]
+    partial class UserSetting
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,6 +180,24 @@ namespace TaskSchedule.Migrations
                     b.ToTable("UserToken");
                 });
 
+            modelBuilder.Entity("TaskSchedule.Domain.UserSetting", b =>
+                {
+                    b.Property<string>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("PhotoProfile");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSetting");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -223,6 +241,13 @@ namespace TaskSchedule.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TaskSchedule.Domain.UserSetting", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
