@@ -63,4 +63,7 @@
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/Error.g.cshtml.cs
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/_ValidationScriptsPartial.g.cshtml.cs
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Areas/Identity/Pages/_ViewImports.g.cshtml.cs
-/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/Adduser/Create.g.cshtml.cs
+/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/User/List.g.cshtml.cs
+/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/User/Add.g.cshtml.cs
+/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/TaskUser/Add.g.cshtml.cs
+/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/TaskUser/List.g.cshtml.cs

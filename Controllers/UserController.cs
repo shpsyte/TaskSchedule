@@ -6,34 +6,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskSchedule.Data;
 using TaskSchedule.Domain;
 using TaskSchedule.Models;
 
 namespace TaskSchedule.Controllers {
-  public class AddUserController : BaseController {
+  public class UserController : BaseController {
 
-    public AddUserController (UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<AddUserController> logger) : base (userManager, context, logger) { }
+    public UserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<UserController> logger) : base (userManager, context, logger) { }
 
     [BindProperty]
     public UserModel Input { get; set; }
 
-    public IActionResult Create () {
+    public IActionResult List () {
+      var users = _userManager.Users.ToList ();
+
+      return View (users);
+    }
+
+    public IActionResult Add () {
       return View (new UserModel ());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create (UserModel p) {
+    public async Task<IActionResult> Add (UserModel p) {
       // first add User
 
       if (ModelState.IsValid) {
-        var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+        var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name };
         var result = await _userManager.CreateAsync (user, Input.Password);
         if (result.Succeeded) {
-          UserSetting userSetting = new UserSetting () { Name = Input.Name, User = user };
-          var userresult = await _context.UserSetting.AddAsync (userSetting);
-          var dbrestul = await _context.SaveChangesAsync ();
+
           _logger.LogInformation ("User created a new account with password.");
           _userManager.AddToRoleAsync (user, "SUPERVISOR").Wait ();
         }
@@ -43,7 +48,7 @@ namespace TaskSchedule.Controllers {
         }
 
       }
-      return RedirectToAction ("Index", "Home");
+      return RedirectToAction ("List", "User");
     }
 
   }

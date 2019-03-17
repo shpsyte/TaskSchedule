@@ -16,6 +16,9 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/clockpicker/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lib/jquery-ui/jquery-ui.min.css">
+
 </head>
 <body>
     <div></div>
@@ -30,9 +33,15 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                      <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="AddUser" asp-action="Create">Add User</a>
+                      @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
+                      {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="List">Usuarios</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TaskUser" asp-action="List">Tarefas</a>
+                        </li>
+                       }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -76,6 +85,9 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/clockpicker/bootstrap-clockpicker.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

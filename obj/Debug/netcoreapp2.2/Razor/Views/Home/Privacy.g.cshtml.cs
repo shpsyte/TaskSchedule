@@ -23,8 +23,13 @@ using TaskSchedule.Models;
 
 #line default
 #line hidden
+#line 3 "/media/jose/Data/DotNet/Workspace/TaskSchedule/Views/_ViewImports.cshtml"
+using TaskSchedule.Domain;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bdc2c33d527da40686e49bd8cfc1e60554d5e3f1", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a8c50eeaf3167faeed2a2f2194255cdada38ab2d", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -7,19 +7,18 @@ using Microsoft.EntityFrameworkCore;
 using TaskSchedule.Domain;
 
 namespace TaskSchedule.Data {
-  public class ApplicationDbContext : IdentityDbContext<IdentityUser> {
+  public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int> {
     public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) {
 
     }
 
-    public DbSet<UserSetting> UserSetting { get; set; }
-
+    public DbSet<TaskUser> TaskUser { get; set; }
     protected override void OnModelCreating (ModelBuilder builder) {
       base.OnModelCreating (builder);
 
-      builder.Entity<IdentityUser> ().ToTable ("User");
-      builder.Entity<IdentityUser> ().HasKey (a => a.Id);
-      builder.Entity<IdentityRole> ().ToTable ("Role");
+      builder.Entity<ApplicationUser> ().ToTable ("User");
+      builder.Entity<ApplicationUser> ().HasKey (a => a.Id);
+      builder.Entity<ApplicationRole> ().ToTable ("Role");
       builder.Entity<IdentityUserClaim<string>> ().ToTable ("UserClaim");
       builder.Entity<IdentityUserRole<string>> ().ToTable ("UserRole");
       builder.Entity<IdentityUserLogin<string>> ().ToTable ("UserLogin");
@@ -30,6 +29,14 @@ namespace TaskSchedule.Data {
       builder.Entity<IdentityUserLogin<string>> ().HasKey (a => new { a.UserId, a.ProviderKey });
       builder.Entity<IdentityRoleClaim<string>> ().HasKey (a => new { a.RoleId, a.Id });
       builder.Entity<IdentityUserToken<string>> ().HasKey (a => new { a.UserId });
+
+      builder.Entity<TaskUser> ().ToTable ("TaskUser");
+      builder.Entity<TaskUser> ().HasKey (a => new { a.Id });
+
+      builder.Entity<TaskUser> ().HasOne (d => d.User)
+        .WithMany (p => p.TaskUser)
+        .HasForeignKey (d => d.UserId)
+        .OnDelete (DeleteBehavior.Restrict);
 
     }
   }

@@ -1,0 +1,64 @@
+@model TaskUser
+@{
+    ViewData["Title"] = "Register Task";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <h4>Create a new Task.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateOfTest"></label>
+                <input type="datetime" asp-for="DateOfTest" placeholder="Quando?" class="form-control datepicker">
+                <span asp-validation-for="DateOfTest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time"></label>
+                <input class="form-control clockpicker" asp-for="Time" type="text" placeholder="Select time" data-autoclose="true">
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="FundationName"></label>
+                <input asp-for="FundationName" class="form-control" />
+                <span asp-validation-for="FundationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentName"></label>
+                <input asp-for="StudentName" class="form-control" />
+                <span asp-validation-for="StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentId"></label>
+                <input asp-for="StudentId" class="form-control" />
+                <span asp-validation-for="StudentId" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Link"></label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="UserId"></label>
+                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+  <script type="text/javascript">
+    $('.clockpicker').clockpicker();
+    $('.datepicker' ).datepicker();
+  </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

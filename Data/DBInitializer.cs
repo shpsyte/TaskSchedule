@@ -9,28 +9,32 @@ namespace TaskSchedule.Data {
     static string roleAdm = "ADMINISTRATOR";
     static string roleUser = "SUPERVISOR";
 
-    public static void SeedData (UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) {
+    public static void SeedData (UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager) {
       SeedRoles (roleManager);
       SeedUsers (userManager);
     }
-    private static void SeedRoles (RoleManager<IdentityRole> roleManager) {
+
+    private static void SeedRoles (RoleManager<ApplicationRole> roleManager) {
+
       if (!roleManager.RoleExistsAsync (roleAdm).Result) {
-        IdentityRole role = new IdentityRole ();
+        ApplicationRole role = new ApplicationRole ();
         role.Name = roleAdm;
         IdentityResult roleResult = roleManager.
         CreateAsync (role).Result;
       }
+
       if (!roleManager.RoleExistsAsync (roleUser).Result) {
-        IdentityRole role = new IdentityRole ();
+        ApplicationRole role = new ApplicationRole ();
         role.Name = roleUser;
         IdentityResult roleResult = roleManager.
         CreateAsync (role).Result;
       }
 
     }
-    private static void SeedUsers (UserManager<IdentityUser> userManager) {
+    private static void SeedUsers (UserManager<ApplicationUser> userManager) {
       if (userManager.FindByEmailAsync (email).Result == null) {
-        IdentityUser user = new IdentityUser {
+        ApplicationUser user = new ApplicationUser {
+        Name = email,
         UserName = email,
         Email = email
         };
