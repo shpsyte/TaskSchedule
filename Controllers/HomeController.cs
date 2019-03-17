@@ -65,6 +65,7 @@ namespace TaskSchedule.Controllers {
       }
 
       task.Done = true;
+      task.DateOfEnd = System.DateTime.Now;
       _context.Entry (task).State = EntityState.Modified;
       _context.SaveChanges ();
 

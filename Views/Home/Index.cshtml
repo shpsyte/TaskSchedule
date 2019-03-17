@@ -1,57 +1,75 @@
-﻿@model IEnumerable<TaskUser>
+﻿@{
+    ViewData["Title"] = "Home";
+}
+@model IEnumerable<TaskUser>
+ <div class="row">
+  <div class="col-lg-12 col-md-12">
 
-<div class="text-center">
-    <h1 class="display-6">@( User.IsInRole("ADMINISTRATOR") ? "Todas" : "Minhas") Tarefas</h1>
-</div>
 
 
-<div id="content">
-    <div class="well well-light">
-        <p class="note">Registros Localizados: <small class="text-danger">(@Model.Count())</small> </p>
-        <hr />
-        <div class="row padding-top-15">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table id="resultTable" class="table table-striped table-bordered table-hover">
-                             <thead>
-                                <tr>
-                                  <th data-class="expand"> Nome</th>
-                                  <th data-hide="phone"> Instituição</th>
-                                  <th data-hide="phone"> Aluno</th>
-                                  <th data-hide="phone"> Data do Teste</th>
-                                  <th data-hide="phone"> Done</th>
-                                  <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @foreach (var item in Model.OrderBy(a => a.Done).ThenByDescending(a => a.DateOfTest)) {
-                                <tr>
-                                    <td>
-                                          @Html.DisplayFor(modelItem => item.User.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FundationName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.StudentName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DateOfTest)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Done)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-labeled bg-color-blueLight txt-color-white"> Detalhar </a>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="card card-tsasks">
+ <div class="card-header ">
+          <div class="text-center">
+              <h2 class="display-6">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h2>
+          </div>
+        <h6 class="title d-inline">Tasks(@Model.Count())</h6>
+      </div>
+          <div class="table-responsive">
+          <table class="table tablesorter" id="">
+            <thead class=" text-primary">
+              <tr>
+                  <th>
+                  Supervisor
+                </th>
+                <th>
+                  Instituição
+                </th>
+                <th>
+                  Aluno
+                </th>
+                <th>
+                  data
+                </th>
+                <th class="text-center">
+                  Done
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @{ var all = Model.ToList().OrderBy(a => a.Done).ThenByDescending(a => a.DateOfTest); }
+              @foreach (var item in all)
+              {
+                <tr>
+                <td>
+                  @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+
+                <td>
+                  @Html.DisplayFor(modelItem => item.FundationName)
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.DateOfTest)
+                </td>
+                <td class="text-center">
+                  @Html.DisplayFor(modelItem => item.Done)
+                </td>
+                  <td class="text-center">
+                  <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
+
+
+
     </div>
+  </div>
 </div>
 @section Scripts {
 

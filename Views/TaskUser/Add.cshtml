@@ -2,22 +2,27 @@
 @{
     ViewData["Title"] = "Register Task";
 }
-
-
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+  <div class="col-md-8">
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Adicionar Tarefa</h4>
+        <p class="category"></p>
+      </div>
+      <div class="card-body">
+           <form method="post">
             <h4>Nova Tarefa</h4>
             <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
             <div class="form-group">
                 <label asp-for="DateOfTest"></label>
-                <input type="datetime" asp-for="DateOfTest" placeholder="Quando?" class="form-control datepicker">
+                <input type="datetime" autocomplete="off" asp-for="DateOfTest" placeholder="Quando?" class="form-control datepicker col-md-4">
                 <span asp-validation-for="DateOfTest" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Time"></label>
-                <input class="form-control clockpicker" asp-for="Time" type="text" placeholder="Select time" data-autoclose="true">
+                <input class="form-control clockpicker col-md-4" autocomplete="off" asp-for="Time" type="text" placeholder="Select time" data-autoclose="true">
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
 
@@ -45,13 +50,20 @@
             </div>
              <div class="form-group">
                 <label asp-for="UserId"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <select asp-for="UserId" class ="form-control col-md-6" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <a class="btn btn-info" asp-action="List">Lista</a>
         </form>
+
+      </div>
     </div>
+  </div>
 </div>
+
+
+
 
 @section Scripts {
   <script type="text/javascript">

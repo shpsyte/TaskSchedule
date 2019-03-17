@@ -3,16 +3,23 @@
     ViewData["Title"] = "Register";
 }
 
-
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
+  <div class="col-md-8">
+
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Adicionar Usuários</h4>
+        <p class="category"></p>
+      </div>
+      <div class="card-body">
+
+          <form method="post">
             <h4>Nova Conta</h4>
             <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
             <hr />
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control col-md-6" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -22,20 +29,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control col-md-6" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+                <input asp-for="ConfirmPassword" class="form-control col-md-6" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Registrar</button>
             <a class="btn btn-info" asp-action="List">Lista</a>
 
         </form>
+
+      </div>
     </div>
+  </div>
 </div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

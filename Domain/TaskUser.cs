@@ -59,6 +59,9 @@ namespace TaskSchedule.Domain {
     [Display (Name = "Obs")]
     public string Comments { get; set; }
 
+    [DataType (DataType.Date)]
+    [DisplayFormat (DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    [Display (Name = "Data da Finalização")]
     public Nullable<DateTime> DateOfEnd { get; set; }
     public bool Done { get; set; }
 

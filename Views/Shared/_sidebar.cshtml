@@ -1,0 +1,36 @@
+    <div class="sidebar" data="blue">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a asp-area="" asp-controller="Home" asp-action="Index" class="simple-text logo-normal">
+            <b>TDCO</b>, Test Digital Co
+          </a>
+        </div>
+        <ul class="nav">
+        <li>
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+          <i class="tim-icons icon-chart-pie-36"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+          <li>
+            <a asp-area="" asp-controller="User" asp-action="List">
+             <i class="tim-icons icon-single-02"></i>
+              <p>Usuários</p>
+            </a>
+          </li>
+          <li>
+            <a asp-area="" asp-controller="TaskUser" asp-action="List">
+              <i class="tim-icons icon-pin"></i>
+              <p>Tarefas</p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+
