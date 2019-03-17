@@ -67,3 +67,4 @@
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/User/Add.g.cshtml.cs
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/TaskUser/Add.g.cshtml.cs
 /media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/TaskUser/List.g.cshtml.cs
+/media/jose/Data/DotNet/Workspace/TaskSchedule/obj/Debug/netcoreapp2.2/Razor/Views/Home/Details.g.cshtml.cs

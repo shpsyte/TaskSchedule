@@ -1,0 +1,56 @@
+@model TaskUser
+@{
+    ViewData["Title"] = "Register Task";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Done" method="post">
+             @Html.HiddenFor(a => a.Id)
+            <h4>Create a new Task.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateOfCreate"></label>
+                <strong> @Model.DateOfCreate.ToString("dd/MM/yyyy hh:mm tt") </strong>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfTest"></label>
+                <strong> @Model.DateOfTest.ToString("dd/MM/yyyy hh:mm tt") </strong>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="FundationName"></label>
+                <strong> @Model.FundationName </strong>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentName"></label>
+                <strong> @Model.StudentName </strong>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentId"></label>
+               <strong> @Model.StudentId </strong>
+            </div>
+             <div class="form-group">
+                <label asp-for="Link"></label>
+               <strong> <a href="@Model.Link" target="_blank"> @Model.Link </a> </strong>
+            </div>
+             <div class="form-group">
+                <label asp-for="UserId"></label>
+                <strong> @Model.User.Name</strong>
+            </div>
+            @if (!Model.Done){
+              <button type="submit" class="btn btn-primary">Done</button>
+            }
+            <a class="btn btn-warning" asp-action="Index" asp-contoller="Home">Home</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+
+}

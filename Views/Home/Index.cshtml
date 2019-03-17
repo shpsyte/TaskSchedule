@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TaskUser>
 
 <div class="text-center">
-    <h1 class="display-4">Tarefas</h1>
+    <h1 class="display-6">@( User.IsInRole("ADMINISTRATOR") ? "Todas" : "Minhas") Tarefas</h1>
 </div>
 
 
@@ -9,12 +9,6 @@
     <div class="well well-light">
         <p class="note">Registros Localizados: <small class="text-danger">(@Model.Count())</small> </p>
         <hr />
-        <div class="row">
-            <div class="col-md-12">
-              <a asp-action="Add" class="btn btn-success">Novo</a>
-            </div>
-        </div>
-        <hr>
         <div class="row padding-top-15">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -25,24 +19,32 @@
                                   <th data-hide="phone"> Instituição</th>
                                   <th data-hide="phone"> Aluno</th>
                                   <th data-hide="phone"> Data do Teste</th>
+                                  <th data-hide="phone"> Done</th>
+                                  <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model) {
-                                        <tr>
-                                            <td>
-                                                  @Html.DisplayFor(modelItem => item.User.Name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.FundationName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.StudentName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DateOfTest)
-                                            </td>
-                                        </tr>
+                              @foreach (var item in Model.OrderBy(a => a.Done).ThenByDescending(a => a.DateOfTest)) {
+                                <tr>
+                                    <td>
+                                          @Html.DisplayFor(modelItem => item.User.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FundationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateOfTest)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Done)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-labeled bg-color-blueLight txt-color-white"> Detalhar </a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                     </table>

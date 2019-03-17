@@ -83,10 +83,6 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
         return NotFound ($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
       }
 
-      if (Input.Name != user.Name) {
-        user.Name = Input.Name;
-      }
-
       var email = await _userManager.GetEmailAsync (user);
       if (Input.Email != email) {
         var setEmailResult = await _userManager.SetEmailAsync (user, Input.Email);
@@ -103,6 +99,14 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
           var userId = await _userManager.GetUserIdAsync (user);
           throw new InvalidOperationException ($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
         }
+      }
+      if (Input.Name != user.Name) {
+        user.Name = Input.Name;
+      }
+
+      var updateProfileResult = await _userManager.UpdateAsync (user);
+      if (!updateProfileResult.Succeeded) {
+        throw new InvalidOperationException ($"Unexpected error ocurred updating the profile for user with ID '{user.Id}'");
       }
 
       await _signInManager.RefreshSignInAsync (user);

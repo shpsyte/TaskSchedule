@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,8 @@ using TaskSchedule.Domain;
 using TaskSchedule.Models;
 
 namespace TaskSchedule.Controllers {
+
+  [Authorize (Policy = "ADMIN")]
   public class TaskUserController : BaseController {
     public TaskUserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger) : base (userManager, context, logger) { }
 
@@ -34,7 +37,7 @@ namespace TaskSchedule.Controllers {
     public async Task<IActionResult> Add (TaskUser p) {
       if (ModelState.IsValid) {
         var task = new TaskUser {
-          DateOfTest = Input.DateOfTest,
+          DateOfTest = Input.DateOfTest + Input.Time,
           DateOfEnd = null,
           FundationName = Input.FundationName,
           Link = Input.Link,

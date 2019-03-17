@@ -50,8 +50,10 @@ namespace TaskSchedule {
         options.SupportedCultures = supportedCultures;
         options.SupportedUICultures = supportedCultures;
 
-        //options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(async A => { return new ProviderCultureResult("en"); }));
+      });
 
+      services.AddAuthorization (options => {
+        options.AddPolicy ("ADMIN", policy => policy.RequireRole ("ADMINISTRATOR"));
       });
 
       services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);

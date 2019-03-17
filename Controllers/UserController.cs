@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using TaskSchedule.Domain;
 using TaskSchedule.Models;
 
 namespace TaskSchedule.Controllers {
+  [Authorize (Policy = "ADMIN")]
   public class UserController : BaseController {
 
     public UserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<UserController> logger) : base (userManager, context, logger) { }
@@ -22,7 +24,6 @@ namespace TaskSchedule.Controllers {
 
     public IActionResult List () {
       var users = _userManager.Users.ToList ();
-
       return View (users);
     }
 
