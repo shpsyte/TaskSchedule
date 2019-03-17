@@ -13,6 +13,8 @@ project.lock.json
 *.userosscache
 *.sln.docstates
 
+[Pp]ublic/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
