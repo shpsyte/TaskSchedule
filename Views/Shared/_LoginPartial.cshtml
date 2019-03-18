@@ -3,38 +3,25 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-
-<ul class="navbar-nav ml-auto">
-
+<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-
-
-<li class="dropdown nav-item">
-
-<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-  <div class="phsoto">
-        @User.Identity.Name.ToLower()
-  </div>
-  <b class="caret d-none d-lg-block d-xl-block"></b>
-</a>
-<ul class="dropdown-menu dropdown-navbar">
-  <li class="nav-link">
-    <a  class="nav-item dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
-  </li>
-  <li class="dropdown-divider"></li>
-  <li class="nav-link">
-     <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    <li class="nav-item">
+        <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Olá, @User.Identity.Name!</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link">Logout</button>
         </form>
-
-  </li>
-</ul>
-</li>
-
+    </li>
 }
-
-    <li class="separator d-lg-none"></li>
+else
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
 </ul>
-
-

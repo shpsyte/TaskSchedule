@@ -5,39 +5,36 @@
 }
 
 
-<div class="col-md-6">
-
+<div class="col-md-6 offset-md-3 offset-xs-1">
+<br>
 <div class="card">
+  <div class="card-header card-header-text card-header-primary">
+    <div class="card-text">
+      <h2 class="card-title">Register</h2>
+      <p></p>
+    </div>
+  </div>
   <div class="card-body">
-    <h4 class="card-title">Register</h4>
-    <h6 class="card-subtitle mb-2 text-muted">Insira sua informação para registro</h6>
       <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Criar uma nova conta</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control" />
+            <div class="form-group" style="padding-bottom: 25px !important;">
+                <input asp-for="Input.Name" class="form-control" placeholder="Nome" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+            <div class="form-group" style="padding-bottom: 25px !important;">
+                <input asp-for="Input.Email" class="form-control"  placeholder="Email"/>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+            <div class="form-group" style="padding-bottom: 25px !important;">
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <div class="form-group" style="padding-bottom: 25px !important;">
+                <input asp-for="Input.ConfirmPassword" class="form-control"   placeholder="Confirm Password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Registar</button>
             <p>
-            <a asp-page="./Login" classbtn btn-success>Ou, clique para Login</a>
+            <a asp-page="./Login" classbtn btn-success>Já tem conta?, clique para Login</a>
             </p>
         </form>
   </div>

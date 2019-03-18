@@ -6,16 +6,11 @@
   <div class="col-lg-12 col-md-12">
 
 
-
-    <div class="card card-tsasks">
- <div class="card-header ">
-          <div class="text-center">
-              <h2 class="display-6">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h2>
-          </div>
-        <h6 class="title d-inline">Tasks(@Model.Count())</h6>
-      </div>
-          <div class="table-responsive">
-          <table class="table tablesorter" id="">
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Tasks(@Model.Count())</h6>
+           <table class="table tablesorter" id="">
             <thead class=" text-primary">
               <tr>
                   <th>
@@ -64,13 +59,5 @@
               }
             </tbody>
           </table>
-        </div>
-
-
-
-    </div>
   </div>
 </div>
-@section Scripts {
-
-}

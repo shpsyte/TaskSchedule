@@ -3,18 +3,13 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="row">
-  <div class="col-md-8">
 
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Adicionar Usuários</h4>
-        <p class="category"></p>
-      </div>
-      <div class="card-body">
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Adicionar</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Usuários terão acesso apenas a suas tarefas</h6>
 
           <form method="post">
-            <h4>Nova Conta</h4>
             <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
             <hr />
             <div class="form-group">
@@ -37,15 +32,13 @@
                 <input asp-for="ConfirmPassword" class="form-control col-md-6" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-success">Registrar</button>
+            <button type="submit" class="btn btn-primary">Registrar</button>
             <a class="btn btn-info" asp-action="List">Lista</a>
 
         </form>
-
-      </div>
-    </div>
   </div>
 </div>
+
 
 
 

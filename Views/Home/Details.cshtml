@@ -4,65 +4,35 @@
 }
 
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title"> <strong>   @Model.FundationName  </strong> </h2>
-        <p class="category">@Model.User.Name</p>
-      </div>
-      <div class="card-body">
-        <form asp-action="Done" method="post">
-             @Html.HiddenFor(a => a.Id)
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DateOfCreate"></label>
-                <strong> @Model.DateOfCreate.ToString("dd/MM/yyyy hh:mm tt") </strong>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfTest"></label>
-                <strong> @Model.DateOfTest.ToString("dd/MM/yyyy hh:mm tt") </strong>
-            </div>
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title"> @Model.FundationName - @Model.StudentName </strong> </h2>
+    <h6 class="card-subtitle mb-2 text-muted">@Model.User.Name</h6>
+    <p class="card-text">ID:(@Model.StudentId): Link para aplicação do teste</p>
+    <p class="card-text"><a href="@Model.Link" target="_blank"> @Model.Link </a></p>
 
-            @if (Model.DateOfEnd.HasValue)
-            {
-              <div class="form-group">
-                  <label asp-for="DateOfEnd"></label>
-                  <strong> @Model.DateOfEnd.Value.ToString("dd/MM/yyyy hh:mm tt") </strong>
-              </div>
-            }
+    <hr>
+    <h3>Datas</h3>
+    <p class="card-text">  <label asp-for="DateOfCreate"></label> @Model.DateOfCreate.ToString("dd/MM/yyyy hh:mm tt")  </p>
+    <p class="card-text">  <label asp-for="DateOfTest"></label> @Model.DateOfTest.ToString("dd/MM/yyyy hh:mm tt")  </p>
 
+    @if (Model.DateOfEnd.HasValue)
+    {
+      <p class="card-text">  <label asp-for="DateOfEnd"></label> @Model.DateOfEnd.Value.ToString("dd/MM/yyyy hh:mm tt")  </p>
+    }
 
-
-
-
-            <div class="form-group">
-                <label asp-for="FundationName"></label>
-                <strong> @Model.FundationName </strong>
-            </div>
-            <div class="form-group">
-                <label asp-for="StudentName"></label>
-                <strong> @Model.StudentName </strong>
-            </div>
-            <div class="form-group">
-                <label asp-for="StudentId"></label>
-               <strong> @Model.StudentId </strong>
-            </div>
-             <div class="form-group">
-                <label asp-for="Link"></label>
-               <strong> <a href="@Model.Link" target="_blank"> @Model.Link </a> </strong>
-            </div>
-             <div class="form-group">
-                <label asp-for="UserId"></label>
-                <strong> @Model.User.Name</strong>
-            </div>
-            @if (!Model.Done){
+    <hr>
+    <h3>Ações</h3>
+     <form asp-action="Done" method="post">
+        @Html.HiddenFor(a => a.Id)
+           @if (!Model.Done)
+           {
               <button type="submit" class="btn btn-primary">Done</button>
             }
-            <a class="btn btn-warning" asp-action="Index" asp-contoller="Home">Home</a>
-        </form>
-      </div>
-    </div>
+      <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a>
+    </form>
+
+
   </div>
 </div>
+

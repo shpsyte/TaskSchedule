@@ -4,51 +4,49 @@
 @{
     ViewData["Title"] = "Log in";
 }
+<div class="col-md-6 offset-md-3 offset-xs-1">
 
-
-<div class="col-md-6">
+<br>
 
 <div class="card">
   <div class="card-header card-header-text card-header-primary">
     <div class="card-text">
       <h2 class="card-title">Login</h2>
-      <p>Efetue Login para entrar no sistema</p>
-
+      <p></p>
     </div>
   </div>
   <div class="card-body">
-    <form id="account" method="post">
+        <form id="account" method="post">
+         <div asp-validation-summary="All" class="text-danger"></div>
 
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Entrar</button>
-                </div>
-                <div class="form-group">
-                    <!-- <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p> -->
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Não tem conta ainda? Registre-se</a>
-                    </p>
-                </div>
-            </form>
+        <div class="form-group" style="padding-bottom: 25px !important;">
+            <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label asp-for="Input.RememberMe">
+                    <input asp-for="Input.RememberMe" />
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+        <div class="form-group">
+            <!-- <p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+            </p> -->
+            <p>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Não tem conta ainda? Registre-se</a>
+            </p>
+        </div>
+    </form>
   </div>
 </div>
 </div>

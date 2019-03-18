@@ -1,19 +1,17 @@
+
 @{
     ViewData["Title"] = "Home";
 }
 @model IEnumerable<TaskUser>
  <div class="row">
   <div class="col-lg-12 col-md-12">
-    <div class="card card-tsasks">
-      <div class="card-header ">
-        <a asp-action="Add" class="btn btn-success btn-round">Novo</a>
-          <div class="text-center">
-              <h1 class="display-6">@( User.IsInRole("ADMINISTRATOR") ? "Todas" : "Minhas") Tarefas</h1>
-          </div>
-        <h6 class="title d-inline">Tasks(@Model.Count())</h6>
-      </div>
-          <div class="table-responsive">
-          <table class="table tablesorter" id="">
+
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Tasks(@Model.Count())</h6>
+           <table class="table tablesorter" id="">
             <thead class=" text-primary">
               <tr>
                   <th>
@@ -56,19 +54,12 @@
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
                   <td class="text-center">
-                  <a class="btn btn-primary btn-sm" asp-action="Details" asp-controller="Home" asp-route-id="@item.Id">Ver</a>
+                  <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
                 </td>
               </tr>
               }
             </tbody>
           </table>
-        </div>
-
-
-
-    </div>
+    <a asp-action="Add" class="btn btn-primary">Novo</a>
   </div>
 </div>
-@section Scripts {
-
-}
