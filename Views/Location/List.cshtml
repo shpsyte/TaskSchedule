@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Locais de Testes";
+}
+@model IEnumerable<Location>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Locais de Prova</h4>
+    <h6 class="card-subtitle mb-2 text-muted">@Model.Count() registros</h6>
+          <table class="table tablesorter" id="">
+          <thead class=" text-primary">
+          <tr>
+            <th data-class="expand"> Nome</th>
+            <th data-hide="phone"> Address</th>
+            <th data-hide="phone"> Fone</th>
+            <th data-hide="phone"> Responsável</th>
+          </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                  <tr>
+                      <td>@Html.DisplayFor(modelItem => item.FundationName)</td>
+                      <td>@item.FullAddress()</td>
+                      <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                      <td>@Html.DisplayFor(modelItem => item.Responsible)</td>
+                  </tr>
+                }
+              </tbody>
+          </table>
+    <a asp-action="Add" asp-controller="Location" class="btn btn-primary">Novo</a>
+  </div>
+</div>

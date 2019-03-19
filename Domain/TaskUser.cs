@@ -8,6 +8,7 @@ namespace TaskSchedule.Domain {
     public TaskUser () {
       this.DateOfCreate = System.DateTime.Now;
       this.DateOfEnd = null;
+      this.FundationName = "NoFundation";
     }
     public int Id { get; set; }
 
@@ -30,7 +31,6 @@ namespace TaskSchedule.Domain {
     [DataType (DataType.Time)]
     public TimeSpan? Duration { get; set; }
 
-    [Required]
     [DataType (DataType.Text)]
     [Display (Name = "Instituição")]
     public string FundationName { get; set; }
@@ -65,6 +65,7 @@ namespace TaskSchedule.Domain {
     public Nullable<DateTime> DateOfEnd { get; set; }
     public bool Done { get; set; }
 
+    [Display (Name = "Local da Prova")]
     public Nullable<int> LocationId { get; set; }
 
     public virtual ApplicationUser User { get; set; }

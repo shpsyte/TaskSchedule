@@ -14,6 +14,7 @@ namespace TaskSchedule.Data {
     }
 
     public DbSet<TaskUser> TaskUser { get; set; }
+    public DbSet<Location> Location { get; set; }
     protected override void OnModelCreating (ModelBuilder builder) {
       base.OnModelCreating (builder);
 

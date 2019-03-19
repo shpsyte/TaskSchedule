@@ -30,6 +30,7 @@ namespace TaskSchedule.Controllers {
     public IActionResult Add () {
       ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
       ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
       return View ();
     }
 
@@ -39,12 +40,17 @@ namespace TaskSchedule.Controllers {
         var task = new TaskUser {
           DateOfTest = Input.DateOfTest + Input.Time,
           DateOfEnd = null,
-          FundationName = Input.FundationName,
           Link = Input.Link,
           StudentId = Input.StudentId,
           StudentName = Input.StudentName,
           UserId = Input.UserId,
+          LocationId = Input.LocationId
         };
+
+        if (Input.LocationId.HasValue) {
+          var LocationName = _context.Location.Find (Input.LocationId).FundationName;
+          task.FundationName = LocationName;
+        }
 
         var taskResult = await _context.TaskUser.AddAsync (task);
         var result = await _context.SaveChangesAsync ();

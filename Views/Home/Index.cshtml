@@ -59,5 +59,9 @@
               }
             </tbody>
           </table>
+           @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
+           {
+              <a asp-action="Add" asp-controller="TaskUser"  class="btn btn-primary">Novo</a>
+           }
   </div>
 </div>

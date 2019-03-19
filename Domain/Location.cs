@@ -42,5 +42,7 @@ namespace TaskSchedule.Domain {
 
     public virtual List<TaskUser> TaskUser { get; set; }
 
+    public string FullAddress () => this.PostalCode + " " + this.Address + ", " + this.Number + " " + this.Neighborhood;
+
   }
 }
