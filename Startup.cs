@@ -60,7 +60,11 @@ namespace TaskSchedule {
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure (IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager) {
+    public void Configure (IApplicationBuilder app,
+      IHostingEnvironment env,
+      UserManager<ApplicationUser> userManager,
+      RoleManager<ApplicationRole> roleManager,
+      ApplicationDbContext context) {
       if (env.IsDevelopment ()) {
         app.UseDeveloperExceptionPage ();
         app.UseDatabaseErrorPage ();
@@ -76,7 +80,7 @@ namespace TaskSchedule {
 
       app.UseAuthentication ();
 
-      DBInitializer.SeedData (userManager, roleManager);
+      DBInitializer.SeedData (context, userManager, roleManager);
 
       app.UseMvc (routes => {
         routes.MapRoute (

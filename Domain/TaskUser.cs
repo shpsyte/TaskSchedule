@@ -65,7 +65,10 @@ namespace TaskSchedule.Domain {
     public Nullable<DateTime> DateOfEnd { get; set; }
     public bool Done { get; set; }
 
+    public Nullable<int> LocationId { get; set; }
+
     public virtual ApplicationUser User { get; set; }
+    public virtual Location Location { get; set; }
 
     public static List<string> TimeSpansInRange (TimeSpan start, TimeSpan end, TimeSpan interval) {
 

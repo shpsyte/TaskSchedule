@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TaskSchedule.Domain;
 
 namespace TaskSchedule.Data {
@@ -9,9 +10,14 @@ namespace TaskSchedule.Data {
     static string roleAdm = "ADMINISTRATOR";
     static string roleUser = "SUPERVISOR";
 
-    public static void SeedData (UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager) {
+    public static void SeedData (ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager) {
+      MigrateDB (context);
       SeedRoles (roleManager);
       SeedUsers (userManager);
+    }
+
+    private static void MigrateDB (ApplicationDbContext context) {
+      context.Database.Migrate ();
     }
 
     private static void SeedRoles (RoleManager<ApplicationRole> roleManager) {

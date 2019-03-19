@@ -8,6 +8,7 @@ using TaskSchedule.Domain;
 
 namespace TaskSchedule.Data {
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int> {
+
     public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) {
 
     }
@@ -37,6 +38,11 @@ namespace TaskSchedule.Data {
         .WithMany (p => p.TaskUser)
         .HasForeignKey (d => d.UserId)
         .OnDelete (DeleteBehavior.Restrict);
+
+      builder.Entity<TaskUser> ().HasOne (d => d.Location)
+        .WithMany (p => p.TaskUser)
+        .HasForeignKey (d => d.LocationId)
+        .OnDelete (DeleteBehavior.SetNull);
 
     }
   }
