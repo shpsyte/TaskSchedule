@@ -11,7 +11,7 @@ namespace TaskSchedule.Controllers {
 
   [Authorize (Policy = "ADMIN")]
   public class LocationController : BaseController {
-    public LocationController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger) : base (userManager, context, logger) { }
+    public LocationController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger, IUser currentUser) : base (userManager, context, logger, currentUser) { }
 
     [BindProperty]
     public Location Input { get; set; }

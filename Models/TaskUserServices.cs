@@ -14,24 +14,26 @@ namespace TaskSchedule.Models {
     }
     public async Task<IQueryable<TaskUser>> GetTaskAsync (TaskuserFilter p) {
 
-      var dataUser = _context.TaskUser.Include (a => a.User).AsNoTracking ().AsQueryable ();
+      var dataUser = _context.TaskUser
+        .Where (a => a.Done == p.done)
+        .Include (a => a.User)
+        .AsNoTracking ()
+        .AsQueryable ();
 
-      if (p.done.HasValue) {
-        dataUser = dataUser.Where (a => a.Done == p.done);
-      }
-
-      if (p.userId.HasValue) {
-        dataUser = dataUser.Where (a => a.UserId == p.userId.Value);
-      }
+      p.userId = p.isAdmin ? p.userId : p.CurrentUserId;
 
       if (p._ini.HasValue) {
-        dataUser = dataUser.Where (a => a.DateOfTest.Date >= p._ini.Value.Date);
+        dataUser = p._ini.HasValue ? dataUser.Where (a => a.DateOfTest.Date >= p._ini.Value.Date) : dataUser;
       }
       if (p._fim.HasValue) {
         dataUser = dataUser.Where (a => a.DateOfTest.Date <= p._fim.Value.Date);
       }
       if (!String.IsNullOrEmpty (p.studantName)) {
         dataUser = dataUser.Where (a => a.StudentName.ToLower ().Contains (p.studantName.ToLower ()));
+      }
+
+      if (p.userId.HasValue) {
+        dataUser = dataUser.Where (a => a.UserId == p.userId.Value);
       }
 
       if (p.locationId.HasValue) {

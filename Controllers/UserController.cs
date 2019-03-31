@@ -17,7 +17,7 @@ namespace TaskSchedule.Controllers {
   [Authorize (Policy = "ADMIN")]
   public class UserController : BaseController {
 
-    public UserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<UserController> logger) : base (userManager, context, logger) { }
+    public UserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<UserController> logger, IUser currentUser) : base (userManager, context, logger, currentUser) { }
 
     [BindProperty]
     public UserModel Input { get; set; }

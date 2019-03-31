@@ -42,6 +42,8 @@ namespace TaskSchedule {
         .AddDefaultUI (UIFramework.Bootstrap4)
         .AddDefaultTokenProviders ();
 
+      services.AddScoped<IUser, User> ();
+
       services.Configure<RequestLocalizationOptions> (options => {
         var supportedCultures = new [] {
         new CultureInfo ("pt-BR")

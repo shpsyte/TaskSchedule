@@ -16,37 +16,45 @@ namespace TaskSchedule.Controllers {
   public class HomeController : BaseController {
 
     private TaskUserServices _taskServices;
-    public HomeController (UserManager<ApplicationUser> userManager,
+    public HomeController (
+      UserManager<ApplicationUser> userManager,
       ApplicationDbContext context,
-      ILogger<BaseController> logger) : base (userManager, context, logger) {
+      ILogger<BaseController> logger,
+      IUser currentUser) : base (userManager, context, logger, currentUser) {
       this._taskServices = new TaskUserServices (context);
+
     }
 
     [BindProperty]
     public taskModel Input { get; set; }
 
     public async Task<IActionResult> Index () {
-      var filter = new TaskuserFilter (User.IsInRole ("ADMINISTRATOR"));
-      var dataUser = new taskModel () { filter = filter, tasks = await _taskServices.GetTaskAsync (filter) };
+
+      var filter = new TaskuserFilter (_isAdmin, _currentUser.Id ());
+      var dataUser = new taskModel () {
+        filter = filter,
+        tasks = await _taskServices.GetTaskAsync (filter)
+      };
+
       LoadDataView ();
       return View (dataUser);
     }
 
     [HttpPost]
     public async Task<IActionResult> Index (taskModel p) {
-      LoadDataView ();
-      p.filter.isAdmin = User.IsInRole ("ADMINISTRATOR");
+
+      p.filter.isAdmin = _isAdmin;
+      p.filter.CurrentUserId = _currentUser.Id ();
+
       var dataUser = new taskModel () { filter = p.filter, tasks = await _taskServices.GetTaskAsync (p.filter) };
+
+      LoadDataView ();
       return View (dataUser);
     }
 
     private void LoadDataView () {
-      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
+      ViewData["UserId"] = new SelectList (_userManager.Users.Where (a => a.Id == (_isAdmin ? a.Id : _currentUser.Id ())).ToList (), "Id", "Name");
       ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
-    }
-
-    private async Task<ApplicationUser> GetCurrentUser () {
-      return await _userManager.GetUserAsync (HttpContext.User);
     }
 
     public IActionResult Privacy () {
@@ -74,7 +82,7 @@ namespace TaskSchedule.Controllers {
       var user = await _userManager.GetUserAsync (HttpContext.User);
 
       if (task.UserId != user.Id) {
-        if (!User.IsInRole ("ADMINISTRATOR")) {
+        if (!_isAdmin) {
           return RedirectToAction ("Error");
         }
       }
@@ -91,7 +99,7 @@ namespace TaskSchedule.Controllers {
       var user = await _userManager.GetUserAsync (HttpContext.User);
 
       if (task.UserId != user.Id) {
-        if (!User.IsInRole ("ADMINISTRATOR")) {
+        if (!_isAdmin) {
           return RedirectToAction ("Error");
         }
       }

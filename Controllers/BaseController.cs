@@ -20,11 +20,15 @@ namespace TaskSchedule.Controllers {
     public ApplicationDbContext _context;
     public ILogger<BaseController> _logger;
     public UserManager<ApplicationUser> _userManager;
+    protected IUser _currentUser;
+    public bool _isAdmin;
 
-    public BaseController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger) {
+    public BaseController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger, IUser currentUser) {
       _context = context;
       _logger = logger;
       _userManager = userManager;
+      _currentUser = currentUser;
+      _isAdmin = _currentUser.IsAdmin ();
 
     }
 

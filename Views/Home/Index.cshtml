@@ -21,6 +21,9 @@
       <div class="modal-body">
         <form method="post">
 
+        @Html.HiddenFor(a => a.filter.isAdmin)
+        @Html.HiddenFor(a => a.filter.CurrentUserId)
+
       <div class="row paceb ">
         <div class="col">
           <input type="datetime" asp-for="filter._ini"   placeholder="Quando.." class="form-control datetimepicker">
@@ -55,7 +58,7 @@
           </div>
           <div class="col">
             <label class="form-check-label">Local</label>
-            <select name="LocationId" class ="form-control" asp-items="ViewBag.LocationId">
+            <select asp-for="filter.locationId" class ="form-control" asp-items="ViewBag.LocationId">
                <option selected>--- SELECT ---</option>
             </select>
           </div>
@@ -108,7 +111,7 @@
                   Aluno
                 </th>
                 <th>
-                  data
+                  Data do Teste
                 </th>
                 <th class="text-center">
                   Done
