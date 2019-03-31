@@ -6,10 +6,9 @@
 
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"> @Model.FundationName - @Model.StudentName </strong> </h2>
+    <h3 class="card-title"> @Model.Location.FundationName: (@Model.StudentId): @Model.StudentName  </h3>
     <h6 class="card-subtitle mb-2 text-muted">@Model.User.Name</h6>
-    <p class="card-text">ID:(@Model.StudentId): Link para aplicação do teste</p>
-    <p class="card-text"><a href="@Model.Link" target="_blank"> @Model.Link </a></p>
+    <!-- <p class="card-text"> @Model.Location.FullAddress() </p> -->
 
     <hr>
     <h3>Datas</h3>
@@ -21,6 +20,13 @@
       <p class="card-text">  <label asp-for="DateOfEnd"></label> @Model.DateOfEnd.Value.ToString("dd/MM/yyyy hh:mm tt")  </p>
     }
 
+    <hr>
+    <h3>Local do teste</h3>
+    <p class="card-text">Instituição: @Model.Location.FundationName </p>
+    <p class="card-text">CEP: @Model.Location.FullAddress() </p>
+    <p class="card-text">Fone: @Model.Location.Phone </p>
+    <p class="card-text">Resposável: @Model.Location.Responsible </p>
+    <p class="card-text"><a href="@Model.Link" target="_blank">Link para aplicação do teste: @Model.Link </a></p>
     <hr>
     <h3>Ações</h3>
      <form asp-action="Done" method="post">

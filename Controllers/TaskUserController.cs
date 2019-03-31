@@ -24,8 +24,7 @@ namespace TaskSchedule.Controllers {
     public TaskUser Input { get; set; }
 
     public IActionResult List () {
-      var data = _context.TaskUser.Include (a => a.User).ToList ();
-      return View (data);
+      return RedirectToAction ("index", "home");
     }
     public IActionResult Add () {
       ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));

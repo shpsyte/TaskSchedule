@@ -1,16 +1,101 @@
-﻿@{
+﻿@model taskModel
+
+@{
     ViewData["Title"] = "Home";
 }
-@model IEnumerable<TaskUser>
+
  <div class="row">
   <div class="col-lg-12 col-md-12">
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+
+      <div class="row paceb ">
+        <div class="col">
+          <input type="datetime" asp-for="filter._ini"   placeholder="Quando.." class="form-control datetimepicker">
+        </div>
+        <div class="col">
+          <input type="datetime"  asp-for="filter._fim"   placeholder="Até.." class="form-control datetimepicker">
+        </div>
+      </div>
+
+      <div class="row paceb ">
+          <div class="col">
+            <input type="text" asp-for="filter.studantName" placeholder="Aluno.." class="form-control">
+          </div>
+           <div class="col form-check ">
+            <label class="form-check-label">
+                <!-- <input class="form-check-input" type="checkbox" name="filter.done" > -->
+                <input class="form-check-input" asp-for="filter.done" />
+                Finalizadas
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+          </div>
+      </div>
+
+        <div class="row paceb ">
+          <div class="col">
+            <label class="form-check-label">Supervisor</label>
+            <select asp-for="filter.userId" class ="form-control" asp-items="ViewBag.userId">
+               <option selected>--- SELECT ---</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="form-check-label">Local</label>
+            <select name="LocationId" class ="form-control" asp-items="ViewBag.LocationId">
+               <option selected>--- SELECT ---</option>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Aplicar Filtro</button>
+      </div>
+
+       </form>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h4>
-    <h6 class="card-subtitle mb-2 text-muted">Tasks(@Model.Count())</h6>
-           <table class="table tablesorter" id="">
+    <div class="row paceb ">
+      <div class="col-6">
+            <h4 class="card-title">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Tasks(@Model.tasks.Count())</h6>
+        </div>
+      <div class="col-6 text-right">
+          @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
+           {
+              <a asp-action="Add" asp-controller="TaskUser"  class="btn btn-primary">Nova</a>
+           }
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+          Filtrar
+      </button>
+      </div>
+    </div>
+
+
+          <table class="table tablesorter" id="">
             <thead class=" text-primary">
               <tr>
                   <th>
@@ -32,7 +117,7 @@
               </tr>
             </thead>
             <tbody>
-              @{ var all = Model.ToList().OrderBy(a => a.Done).ThenByDescending(a => a.DateOfTest); }
+              @{ var all = Model.tasks.ToList().OrderBy(a => a.Done).ThenByDescending(a => a.DateOfTest); }
               @foreach (var item in all)
               {
                 <tr>
@@ -59,9 +144,32 @@
               }
             </tbody>
           </table>
-           @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
-           {
-              <a asp-action="Add" asp-controller="TaskUser"  class="btn btn-primary">Novo</a>
-           }
+
   </div>
 </div>
+
+
+
+@section Scripts {
+  <script type="text/javascript">
+    $('.clockpicker').clockpicker();
+    <!-- $('.datepicker' ).datepicker(); -->
+    $('.datetimepicker').datetimepicker({
+    format: 'L',
+    icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+    }
+});
+  </script>
+
+
+}
+

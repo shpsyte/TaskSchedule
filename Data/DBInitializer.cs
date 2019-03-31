@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskSchedule.Domain;
@@ -14,6 +15,7 @@ namespace TaskSchedule.Data {
       MigrateDB (context);
       SeedRoles (roleManager);
       SeedUsers (userManager);
+      SeedLocation (context);
     }
 
     private static void MigrateDB (ApplicationDbContext context) {
@@ -51,5 +53,17 @@ namespace TaskSchedule.Data {
       }
     }
 
+    private static void SeedLocation (ApplicationDbContext context) {
+      if (context.Location.Count () == 0) {
+        var location = new Location () {
+        Address = "TDCO", CityAndState = "Cwb/PR", FundationName = "TDCO", Neighborhood = "TDCO", Number = "0", Phone = "41", PostalCode = "TDCO", Responsible = "TDCO"
+        };
+
+        context.Location.Add (location);
+        context.SaveChanges ();
+      };
+
+    }
   }
+
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskSchedule.Data;
@@ -14,18 +15,38 @@ using TaskSchedule.Models;
 namespace TaskSchedule.Controllers {
   public class HomeController : BaseController {
 
-    public HomeController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger) : base (userManager, context, logger) { }
+    private TaskUserServices _taskServices;
+    public HomeController (UserManager<ApplicationUser> userManager,
+      ApplicationDbContext context,
+      ILogger<BaseController> logger) : base (userManager, context, logger) {
+      this._taskServices = new TaskUserServices (context);
+    }
+
+    [BindProperty]
+    public taskModel Input { get; set; }
 
     public async Task<IActionResult> Index () {
-      var user = await _userManager.GetUserAsync (HttpContext.User);
-      var dataUser = _context.TaskUser.Include (a => a.User).AsNoTracking ().AsQueryable ();
-
-      if (!User.IsInRole ("ADMINISTRATOR")) {
-        dataUser = dataUser.Where (a => a.UserId == user.Id);
-      }
-
-      //dataUser = dataUser.Where (a => a.Done == false);
+      var filter = new TaskuserFilter (User.IsInRole ("ADMINISTRATOR"));
+      var dataUser = new taskModel () { filter = filter, tasks = await _taskServices.GetTaskAsync (filter) };
+      LoadDataView ();
       return View (dataUser);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Index (taskModel p) {
+      LoadDataView ();
+      p.filter.isAdmin = User.IsInRole ("ADMINISTRATOR");
+      var dataUser = new taskModel () { filter = p.filter, tasks = await _taskServices.GetTaskAsync (p.filter) };
+      return View (dataUser);
+    }
+
+    private void LoadDataView () {
+      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
+    }
+
+    private async Task<ApplicationUser> GetCurrentUser () {
+      return await _userManager.GetUserAsync (HttpContext.User);
     }
 
     public IActionResult Privacy () {
@@ -38,7 +59,18 @@ namespace TaskSchedule.Controllers {
     }
 
     public async Task<IActionResult> Details (int id) {
-      TaskUser task = await _context.TaskUser.Where (a => a.Id == id).Include (a => a.User).FirstAsync ();
+      TaskUser task = await _context.TaskUser
+        .Where (a => a.Id == id)
+        .Include (a => a.User)
+        .Include (l => l.Location)
+        .FirstAsync ();
+
+      if (task.Location == null) {
+        task.LocationId = _context.Location.FirstOrDefault ().Id;
+        _context.Update (task);
+        _context.SaveChanges ();
+      }
+
       var user = await _userManager.GetUserAsync (HttpContext.User);
 
       if (task.UserId != user.Id) {

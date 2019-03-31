@@ -40,9 +40,18 @@ namespace TaskSchedule.Domain {
     [Display (Name = "Responsável")]
     public string Responsible { get; set; }
 
+    [DataType (DataType.Text)]
+    [Display (Name = "Cidade/UP")]
+    public string CityAndState { get; set; }
+
     public virtual List<TaskUser> TaskUser { get; set; }
 
-    public string FullAddress () => this.PostalCode + " " + this.Address + ", " + this.Number + " " + this.Neighborhood;
+    public string FullAddress () =>
+      this.Address + ", " +
+      this.Number + " - " +
+      this.PostalCode + " - " +
+      this.Neighborhood + " - " +
+      this.CityAndState;
 
   }
 }
