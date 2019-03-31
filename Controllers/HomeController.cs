@@ -28,12 +28,12 @@ namespace TaskSchedule.Controllers {
     [BindProperty]
     public taskModel Input { get; set; }
 
-    public async Task<IActionResult> Index () {
+    public IActionResult Index () {
 
       var filter = new TaskuserFilter (_isAdmin, _currentUser.Id ());
       var dataUser = new taskModel () {
         filter = filter,
-        tasks = await _taskServices.GetTaskAsync (filter)
+        tasks = _taskServices.GetTask (filter)
       };
 
       LoadDataView ();
@@ -41,12 +41,12 @@ namespace TaskSchedule.Controllers {
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index (taskModel p) {
+    public IActionResult Index (taskModel p) {
 
       p.filter.isAdmin = _isAdmin;
       p.filter.CurrentUserId = _currentUser.Id ();
 
-      var dataUser = new taskModel () { filter = p.filter, tasks = await _taskServices.GetTaskAsync (p.filter) };
+      var dataUser = new taskModel () { filter = p.filter, tasks = _taskServices.GetTask (p.filter) };
 
       LoadDataView ();
       return View (dataUser);

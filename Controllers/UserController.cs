@@ -52,5 +52,57 @@ namespace TaskSchedule.Controllers {
       return RedirectToAction ("List", "User");
     }
 
+    public async Task<ActionResult> SetPassWord (string email) {
+      var user = await _userManager.FindByNameAsync (email);
+
+      if (user == null) {
+        return RedirectToAction ("List", "User");
+      }
+
+      var data = new UserModel () {
+        Name = user.Name,
+        Email = email
+      };
+
+      return View (data);
+
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> SetPassWord (UserModel p) {
+      var user = await _userManager.FindByNameAsync (p.Email);
+
+      if (user == null) {
+        return RedirectToAction ("index", "home");
+      }
+
+      var data = new UserModel () {
+        Name = user.Name,
+        Email = p.Email
+      };
+
+      if (ModelState.IsValid) {
+        var newPassword = _userManager.PasswordHasher.HashPassword (user, p.Password);
+
+        user.PasswordHash = newPassword;
+        var res = await _userManager.UpdateAsync (user);
+
+        if (res.Succeeded) {
+          _logger.LogInformation ("User created a new account with password.");
+        } else {
+          foreach (var error in res.Errors) {
+            ModelState.AddModelError (string.Empty, error.Description);
+          }
+          return View (data);
+        }
+
+      }
+
+      // compute the new hash string
+
+      return RedirectToAction ("List", "User");
+
+    }
+
   }
 }

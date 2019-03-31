@@ -12,7 +12,7 @@ namespace TaskSchedule.Models {
     public TaskUserServices (ApplicationDbContext context) {
       _context = context;
     }
-    public async Task<IQueryable<TaskUser>> GetTaskAsync (TaskuserFilter p) {
+    public IQueryable<TaskUser> GetTask (TaskuserFilter p) {
 
       var dataUser = _context.TaskUser
         .Where (a => a.Done == p.done)

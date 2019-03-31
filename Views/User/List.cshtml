@@ -24,7 +24,7 @@
                             @Html.DisplayFor(modelItem => item.Name)
                       </td>
                       <td>
-                          @Html.DisplayFor(modelItem => item.Email)
+                        <a href=@Url.Action("SetPassWord", new {email = @item.Email })>@item.Email</a>
                       </td>
                       <td>
                           @Html.DisplayFor(modelItem => item.PhoneNumber)
