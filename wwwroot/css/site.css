@@ -59,3 +59,11 @@ body {
 .paceb {
   padding-bottom: 30px !important;
 }
+
+.logo-image {
+  width: 230px;
+  /* height: 46px;*/
+
+  overflow: hidden;
+  margin-top: -6px;
+}
