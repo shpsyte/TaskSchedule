@@ -18,50 +18,46 @@
 <body>
     <div></div>
     <header class="container">
-        <nav class="navbar navbar-expand-lg bg-info">
-            <div class="container-fluid">
 
+       @if (User.Identity.IsAuthenticated)
+       {
+            <p></p>
+            <nav class="navbar navbar-expand-lg bg-white">
 
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                  <div class="logo-image">
-                    <img src="~/assets/img/logo_tdco.png" class="img-fluid">
-                  </div>
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                      <div class="logo-image">
+                        <img src="~/assets/img/logo_tdco.png" class="img-fluid">
+                      </div>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex">
 
-                </a>
+                        <ul class="navbar-nav flex-grow-1">
+                          @if (User.IsInRole("ADMINISTRATOR"))
+                          {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="List">Usuários</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="TaskUser" asp-action="List">Tarefas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Location" asp-action="List">Locais</a>
+                            </li>
+                          }
 
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex">
-
-                    <ul class="navbar-nav flex-grow-1">
-                      @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
-                      {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="List">Usuários</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="TaskUser" asp-action="List">Tarefas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Location" asp-action="List">Locais</a>
-                        </li>
-                       }
-                       @if (!User.Identity.IsAuthenticated)
-                      {
-                        <li class="nav-item">
-                            <span class="nav-link" > Efetue login para ter acesso ao sistema </span>
-                        </li>
-                      }
-                    </ul>
+                        </ul>
+                    </div>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                      <partial name="_LoginPartial" />
+                    </div>
                 </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                   <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
+            </nav>
+         }
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />

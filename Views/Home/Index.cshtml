@@ -65,14 +65,14 @@
         </div>
 
 
+       </form>
       </div>
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
         <button type="submit" class="btn btn-success">Aplicar Filtro</button>
       </div>
 
-       </form>
     </div>
   </div>
 </div>
@@ -84,12 +84,12 @@
     <div class="row paceb ">
       <div class="col-6">
             <h4 class="card-title">@( User.IsInRole("ADMINISTRATOR") ? "Todas as" : "Minhas") Tarefas</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Tasks(@Model.tasks.Count())</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Tarefas(@Model.tasks.Count())</h6>
         </div>
       <div class="col-6 text-right">
           @if (User.Identity.IsAuthenticated && User.IsInRole("ADMINISTRATOR"))
            {
-              <a asp-action="Add" asp-controller="TaskUser"  class="btn btn-primary">Nova</a>
+              <a asp-action="Add" asp-controller="TaskUser"  class="btn btn-tdco">Nova</a>
            }
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
           Filtrar
@@ -99,7 +99,7 @@
 
 
           <table class="table tablesorter" id="">
-            <thead class=" text-primary">
+            <thead class=" text-tdco">
               <tr>
                   <th>
                   Supervisor
@@ -141,7 +141,7 @@
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
                   <td class="text-center">
-                  <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                  <a class="btn btn-tdco btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
                 </td>
               </tr>
               }

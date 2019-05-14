@@ -38,7 +38,7 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
     public class InputModel {
       [Required]
       [DataType (DataType.Text)]
-      [Display (Name = "Full name")]
+      [Display (Name = "Nome Completo")]
       public string Name { get; set; }
 
       [Required]
@@ -46,7 +46,7 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
       public string Email { get; set; }
 
       [Phone]
-      [Display (Name = "Phone number")]
+      [Display (Name = "Telefone")]
       public string PhoneNumber { get; set; }
     }
 
