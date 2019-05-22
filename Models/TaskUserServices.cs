@@ -12,6 +12,22 @@ namespace TaskSchedule.Models {
     public TaskUserServices (ApplicationDbContext context) {
       _context = context;
     }
+    public async Task<TaskUser> GetTaskById (bool isAdmin, int userId, int id) {
+      TaskUser task = await _context.TaskUser
+        .Where (a => a.Id == id)
+        .Include (a => a.User)
+        .Include (l => l.Location)
+        .FirstAsync ();
+
+      if (!isAdmin) {
+
+        if (task.UserId != userId) {
+          task = null;
+        }
+      }
+
+      return task;
+    }
     public IQueryable<TaskUser> GetTask (TaskuserFilter p) {
 
       var dataUser = _context.TaskUser
@@ -39,6 +55,8 @@ namespace TaskSchedule.Models {
       if (p.locationId.HasValue) {
         dataUser = dataUser.Where (a => a.LocationId == p.locationId.Value);
       }
+
+      dataUser = dataUser.Where (a => a.IsDeleted == false);
 
       return dataUser;
 

@@ -24,6 +24,8 @@
                       <td>@item.FullAddress()</td>
                       <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                       <td>@Html.DisplayFor(modelItem => item.Responsible)</td>
+                       <td class="text-center"><a class="btn btn-tdco btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a> </td>
+
                   </tr>
                 }
               </tbody>

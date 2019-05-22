@@ -44,6 +44,8 @@ namespace TaskSchedule.Domain {
     [Display (Name = "Cidade/UP")]
     public string CityAndState { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual List<TaskUser> TaskUser { get; set; }
 
     public string FullAddress () =>

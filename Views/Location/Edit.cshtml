@@ -1,0 +1,89 @@
+@model Location
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Editar</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Locais de Testes</h6>
+
+          <form method="post">
+            <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
+
+            <div class="form-group paceb">
+                <input asp-for="FundationName" placeholder="Instituição" class="form-control" />
+                <span asp-validation-for="FundationName" class="text-danger"></span>
+            </div>
+
+            <div class="row paceb ">
+              <div class="col-3">
+                <input type="text" asp-for="PostalCode" onblur="SearchCep(this.value)" placeholder="CEP" class="form-control">
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+              </div>
+
+            </div>
+
+
+             <div class="row paceb ">
+              <div class="col-8">
+                <input type="text" asp-for="Address" placeholder="Endereço" class="form-control">
+                <span asp-validation-for="Address" class="text-danger"></span>
+              </div>
+              <div class="col-4">
+                <input class="form-control" asp-for="Number" placeholder="Número" type="text">
+                <span asp-validation-for="Number" class="text-danger"></span>
+              </div>
+            </div>
+
+
+           <div class="row paceb ">
+              <div class="col">
+                <input class="form-control" asp-for="Neighborhood" placeholder="Bairro" type="text">
+                <span asp-validation-for="Neighborhood" class="text-danger"></span>
+              </div>
+            </div>
+
+             <div class="row paceb">
+              <div class="col">
+                <input asp-for="Responsible" placeholder="Responsável" class="form-control" />
+                <span asp-validation-for="Responsible" class="text-danger"></span>
+              </div>
+              <div class="col">
+                <input asp-for="Phone" placeholder="Telefone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+              </div>
+            </div>
+
+
+             <div class="row paceb">
+              <div class="col">
+                <input asp-for="CityAndState" placeholder="Cidade/Estado" class="form-control" />
+                <span asp-validation-for="CityAndState" class="text-danger"></span>
+              </div>
+
+            </div>
+
+
+            <div class="row paceb">
+              <div class="col">
+                <input asp-for="CityAndState" placeholder="Cidade/Estado" class="form-control" />
+                <span asp-validation-for="CityAndState" class="text-danger"></span>
+              </div>
+
+            </div>
+            <button type="submit" name="submit" class="btn btn-tdco" value="Save">Alterar</button>
+            <button onclick="return confirm('Deseja realmente excluir este locação?');" type="submit" name="submit" class="btn btn-danger  pull-right" value="Delete">Excluir</button>
+            <a class="btn btn-info" asp-action="List">Lista</a>
+        </form>
+  </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

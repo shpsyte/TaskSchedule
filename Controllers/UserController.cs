@@ -23,7 +23,7 @@ namespace TaskSchedule.Controllers {
     public UserModel Input { get; set; }
 
     public IActionResult List () {
-      var users = _userManager.Users.ToList ();
+      var users = _userManager.Users.Where (a => a.EmailConfirmed == false).ToList ();
       return View (users);
     }
 
@@ -102,6 +102,30 @@ namespace TaskSchedule.Controllers {
 
       return RedirectToAction ("List", "User");
 
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> DeleteUser (UserModel p) {
+      var user = await _userManager.FindByNameAsync (p.Email);
+
+      if (user == null) {
+        return RedirectToAction ("index", "home");
+      }
+
+      user.EmailConfirmed = true;
+      var res = await _userManager.UpdateAsync (user);
+
+      if (res.Succeeded) {
+        _logger.LogInformation ("User removed.");
+      } else {
+        foreach (var error in res.Errors) {
+          ModelState.AddModelError (string.Empty, error.Description);
+        }
+        return RedirectToAction ("SetPassWord", "User", new { email = p.Email });
+
+      }
+
+      return RedirectToAction ("List", "User");
     }
 
   }

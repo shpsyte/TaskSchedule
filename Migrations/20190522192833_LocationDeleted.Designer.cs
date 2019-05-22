@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskSchedule.Data;
 
 namespace TaskSchedule.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190522192833_LocationDeleted")]
+    partial class LocationDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,8 +302,6 @@ namespace TaskSchedule.Migrations
                     b.Property<TimeSpan?>("Duration");
 
                     b.Property<string>("FundationName");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Link")
                         .IsRequired();

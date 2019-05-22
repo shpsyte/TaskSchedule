@@ -135,14 +135,20 @@
                   @Html.DisplayFor(modelItem => item.StudentName)
                 </td>
                 <td>
-                  @Html.DisplayFor(modelItem => item.DateOfTest)
+                  @item.DateOfTest.ToString("dd/mm/yyyy H:mm")
+
+                </td>
+                 <td>
+                  @Html.DisplayFor(modelItem => item.Link)
                 </td>
                 <td class="text-center">
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
                   <td class="text-center">
                   <a class="btn btn-tdco btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                  <a class="btn btn-warning btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
                 </td>
+
               </tr>
               }
             </tbody>

@@ -26,6 +26,56 @@ namespace TaskSchedule.Controllers {
     public IActionResult List () {
       return RedirectToAction ("index", "home");
     }
+
+    public async Task<IActionResult> Edit (int id) {
+
+      ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
+      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
+
+      TaskUser task = await _context.TaskUser
+        .Where (a => a.Id == id)
+        .Include (a => a.User)
+        .Include (l => l.Location)
+        .FirstAsync ();
+
+      if (task.Location == null) {
+        task.LocationId = _context.Location.FirstOrDefault ().Id;
+        _context.Update (task);
+        _context.SaveChanges ();
+      }
+
+      var user = await _userManager.GetUserAsync (HttpContext.User);
+
+      if (task.UserId != user.Id) {
+        if (!_isAdmin) {
+          return RedirectToAction ("Error");
+        }
+      }
+
+      return View (task);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit (TaskUser p, string submit) {
+
+      ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
+      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
+
+      if (ModelState.IsValid) {
+
+        p.IsDeleted = submit.Equals ("Delete");
+        p.DateOfTest = p.DateOfTest + p.Time;
+
+        var taskResult = _context.TaskUser.Update (p);
+        var result = await _context.SaveChangesAsync ();
+        return RedirectToAction ("List", "TaskUser");
+      }
+
+      return RedirectToAction ("Edit", p);
+
+    }
     public IActionResult Add () {
       ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
       ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
@@ -38,12 +88,14 @@ namespace TaskSchedule.Controllers {
       if (ModelState.IsValid) {
         var task = new TaskUser {
           DateOfTest = Input.DateOfTest + Input.Time,
+          Time = Input.Time,
           DateOfEnd = null,
           Link = Input.Link,
           StudentId = Input.StudentId,
           StudentName = Input.StudentName,
           UserId = Input.UserId,
-          LocationId = Input.LocationId
+          LocationId = Input.LocationId,
+          IsDeleted = false
         };
 
         if (Input.LocationId.HasValue) {

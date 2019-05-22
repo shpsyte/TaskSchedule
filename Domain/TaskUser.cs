@@ -65,6 +65,8 @@ namespace TaskSchedule.Domain {
     public Nullable<DateTime> DateOfEnd { get; set; }
     public bool Done { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     [Display (Name = "Local da Prova")]
     public Nullable<int> LocationId { get; set; }
 

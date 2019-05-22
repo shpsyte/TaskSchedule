@@ -53,8 +53,11 @@
                 <td class="text-center">
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
-                  <td class="text-center">
+                <td class="text-center">
                   <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-primary btn-sm" asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                 </td>
               </tr>
               }

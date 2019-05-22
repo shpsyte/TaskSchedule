@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,12 +12,13 @@ namespace TaskSchedule.Controllers {
 
   [Authorize (Policy = "ADMIN")]
   public class LocationController : BaseController {
+
     public LocationController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<BaseController> logger, IUser currentUser) : base (userManager, context, logger, currentUser) { }
 
     [BindProperty]
     public Location Input { get; set; }
     public IActionResult List () {
-      var data = _context.Location.ToListAsync ();
+      var data = _context.Location.Where (a => a.IsDeleted == false).ToListAsync ();
       return View (data.Result);
     }
 
@@ -34,7 +36,8 @@ namespace TaskSchedule.Controllers {
           Phone = Input.Phone,
           PostalCode = Input.PostalCode,
           Responsible = Input.Responsible,
-          Address = Input.Address
+          Address = Input.Address,
+          IsDeleted = false
         };
 
         await _context.Location.AddAsync (location);
@@ -44,5 +47,25 @@ namespace TaskSchedule.Controllers {
       return RedirectToAction ("List", "Location");
     }
 
+    public async Task<IActionResult> Edit (int id) {
+      var location = await _context.Location.FindAsync (id);
+
+      return View (location);
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit (Location data, string submit) {
+
+      data.IsDeleted = submit.Equals ("Delete");
+
+      if (ModelState.IsValid) {
+        _context.Location.Update (data);
+        await _context.SaveChangesAsync ();
+      }
+
+      return RedirectToAction ("List", "Location");
+
+    }
   }
 }
