@@ -1,2 +1,3 @@
 wwwroot/* linguist-vendored
 Views/* linguist-vendored
+Areas/Identity/Pages/* linguist-vendored
