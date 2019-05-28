@@ -6,6 +6,7 @@ namespace TaskSchedule.Domain {
     public string Name { get; set; }
     public byte[] Photo { get; set; }
     public virtual List<TaskUser> TaskUser { get; set; }
+    public string PasswordTip { get; set; }
 
   }
 

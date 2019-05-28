@@ -59,6 +59,7 @@ namespace TaskSchedule.Areas.Identity.Pages.Account {
     }
 
     public void OnGet (string returnUrl = null) {
+      RedirectToAction ("Login");
       ReturnUrl = returnUrl;
     }
 

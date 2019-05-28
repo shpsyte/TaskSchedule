@@ -15,7 +15,11 @@
     </div>
   </div>
   <div class="card-body">
-      <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h4>Registros de novos usuários devem ser solicitados na administração.</h4>
+    <p>
+            <a asp-page="./Login" classbtn btn-success>Já tem conta?, clique para Login</a>
+            </p>
+      <!-- <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div class="form-group" style="padding-bottom: 25px !important;">
                 <input asp-for="Input.Name" class="form-control" placeholder="Nome" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
@@ -33,10 +37,8 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-tdco">Registar</button>
-            <p>
-            <a asp-page="./Login" classbtn btn-success>Já tem conta?, clique para Login</a>
-            </p>
-        </form>
+
+        </form> -->
   </div>
 </div>
 </div>

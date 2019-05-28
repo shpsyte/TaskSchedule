@@ -36,7 +36,13 @@ namespace TaskSchedule.Controllers {
       // first add User
 
       if (ModelState.IsValid) {
-        var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name };
+        var user = new ApplicationUser {
+          UserName = Input.Email,
+          Email = Input.Email,
+          Name = Input.Name,
+          PasswordTip = Input.PasswordTip
+        };
+
         var result = await _userManager.CreateAsync (user, Input.Password);
         if (result.Succeeded) {
 
@@ -61,7 +67,8 @@ namespace TaskSchedule.Controllers {
 
       var data = new UserModel () {
         Name = user.Name,
-        Email = email
+        Email = email,
+        PasswordTip = user.PasswordTip
       };
 
       return View (data);
