@@ -48,6 +48,9 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
       [Phone]
       [Display (Name = "Telefone")]
       public string PhoneNumber { get; set; }
+
+      [Display (Name = "Lembrete de Senha")]
+      public string PasswordTip { get; set; }
     }
 
     public async Task<IActionResult> OnGetAsync () {
@@ -65,7 +68,8 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
       Input = new InputModel {
         Name = user.Name,
         Email = email,
-        PhoneNumber = phoneNumber
+        PhoneNumber = phoneNumber,
+        PasswordTip = user.PasswordTip
       };
 
       IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync (user);
@@ -102,6 +106,10 @@ namespace TaskSchedule.Areas.Identity.Pages.Account.Manage {
       }
       if (Input.Name != user.Name) {
         user.Name = Input.Name;
+      }
+
+      if (Input.PasswordTip != user.PasswordTip) {
+        user.PasswordTip = Input.PasswordTip;
       }
 
       var updateProfileResult = await _userManager.UpdateAsync (user);
