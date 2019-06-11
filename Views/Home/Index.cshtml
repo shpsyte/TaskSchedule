@@ -113,10 +113,13 @@
                 <th>
                   Data do Teste
                 </th>
-                <th class="text-center">
-                  Done
+                 <th>
+                  Link
                 </th>
-                <th></th>
+                <th class="text-center">
+                  Finalizado?
+                </th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -146,7 +149,11 @@
                 </td>
                   <td class="text-center">
                   <a class="btn btn-tdco btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
-                  <a class="btn btn-warning btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
+
+                  @if (User.IsInRole("ADMINISTRATOR"))
+                  {
+                    <a class="btn btn-warning btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
+                  }
                 </td>
 
               </tr>

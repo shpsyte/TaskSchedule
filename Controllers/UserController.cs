@@ -40,6 +40,7 @@ namespace TaskSchedule.Controllers {
           UserName = Input.Email,
           Email = Input.Email,
           Name = Input.Name,
+          PhoneNumber = Input.PhoneNumber,
           PasswordTip = Input.PasswordTip
         };
 
@@ -51,7 +52,8 @@ namespace TaskSchedule.Controllers {
         }
 
         foreach (var error in result.Errors) {
-          ModelState.AddModelError (string.Empty, error.Description);
+          ModelState.AddModelError ("Email", error.Description);
+          return View (p);
         }
 
       }
