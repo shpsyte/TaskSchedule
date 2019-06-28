@@ -26,7 +26,10 @@
     <p class="card-text">CEP: @Model.Location.FullAddress() </p>
     <p class="card-text">Fone: @Model.Location.Phone </p>
     <p class="card-text">Resposável: @Model.Location.Responsible </p>
-    <p class="card-text"><a href="@Model.Link" target="_blank">Link para aplicação do teste: @Model.Link </a></p>
+    <p class="card-text"><a class="btn btn-tdco" href="@Model.Link" target="_blank">Realizar Teste</a>
+    <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a></p>
+
+
     <hr>
     <h3>Ações</h3>
      <form asp-action="Done" method="post">

@@ -18,20 +18,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form method="post">
+      <form method="post">
+       <div class="modal-body">
 
         @Html.HiddenFor(a => a.filter.isAdmin)
         @Html.HiddenFor(a => a.filter.CurrentUserId)
 
-      <div class="row paceb ">
-        <div class="col">
-          <input type="datetime" asp-for="filter._ini"   placeholder="Quando.." class="form-control datetimepicker">
-        </div>
-        <div class="col">
-          <input type="datetime"  asp-for="filter._fim"   placeholder="Até.." class="form-control datetimepicker">
-        </div>
-      </div>
+          <div class="row paceb ">
+            <div class="col">
+              <input type="datetime" asp-for="filter._ini"   placeholder="Quando.." class="form-control datetimepicker">
+            </div>
+            <div class="col">
+              <input type="datetime"  asp-for="filter._fim"   placeholder="Até.." class="form-control datetimepicker">
+            </div>
+          </div>
 
       <div class="row paceb ">
           <div class="col">
@@ -65,14 +65,13 @@
         </div>
 
 
-       </form>
-      </div>
-      <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="submit" class="btn btn-success">Aplicar Filtro</button>
-      </div>
-
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-success">Aplicar Filtro</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -113,9 +112,9 @@
                 <th>
                   Data do Teste
                 </th>
-                 <th>
+                 <!-- <th>
                   Link
-                </th>
+                </th> -->
                 <th class="text-center">
                   Finalizado?
                 </th>
@@ -141,10 +140,10 @@
                   @item.DateOfTest.ToString("dd/mm/yyyy H:mm")
 
                 </td>
-                 <td>
+                 <!-- <td>
                    <a href="@item.Link" target="_blanck">@item.Link</a>
 
-                </td>
+                </td> -->
                 <td class="text-center">
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
@@ -153,7 +152,7 @@
 
                   @if (User.IsInRole("ADMINISTRATOR"))
                   {
-                    <a class="btn btn-warning btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
+                    <a class="btn btn-info btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
                   }
                 </td>
 

@@ -44,7 +44,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  font-family: 'Ubuntu', Courier, monospace, sans-serif !important;
+  font-family: 'Roboto', Arial, sans-serif !important;
 }
 .footer {
   position: absolute;
