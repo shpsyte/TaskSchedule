@@ -26,13 +26,14 @@
     <p class="card-text">CEP: @Model.Location.FullAddress() </p>
     <p class="card-text">Fone: @Model.Location.Phone </p>
     <p class="card-text">Resposável: @Model.Location.Responsible </p>
-    <p class="card-text"><a class="btn btn-tdco" href="@Model.Link" target="_blank">Realizar Teste</a>
-    <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a></p>
+
+    <!-- <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a></p> -->
 
 
     <hr>
     <h3>Ações</h3>
      <form asp-action="Done" method="post">
+       <p class="card-text"><a class="btn btn-tdco" href="@Model.Link" target="_blank">Realizar Teste</a>
         @Html.HiddenFor(a => a.Id)
            @if (!Model.Done)
            {
