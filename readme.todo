@@ -6,13 +6,13 @@ Projects:
   ✔ 4- Sugestão: A opção excluir, você pode colocar dentro da tela de alteração se achar que vai ocupar muito espaço na lista. @done(19-05-22 14:03)
 
 New Features 31/07/2019:
-    [] Link para Google calendar.. 30 min
-    [] Abrir o link na mesma janela (iframe) .. 30 min
-    [] Incluir categoria administrador no cadastro de novos usuários. : 20min
+    ✔ Link para Google calendar.. 30 min @done(19-08-17 14:31)
+    ✔ Abrir o link na mesma janela (iframe) .. 30 min @done(19-08-17 14:32)
+    ✔ Incluir categoria administrador no cadastro de novos usuários. : 20min @done(19-08-17 14:32)
     // <iframe src="https://www.classmarker.com/online-test/start/?quiz=6g35cffad09305df&iframe=1" frameborder="0"
     //style="width:100%;max-width:700px;" height="800"></iframe>
-    [] Incluir nos cadastros (locais e Usuários) uma opção de inativar (ocultar das buscas) : 40min
-    [] Inserir um relógio regressivo na tela da tarefa : 40min
-    [] Habilitar o botão REALIZAR TESTE restando 5 minutos ou menos. (quando horário na tarefa for controlado) 30min
-    [] Inserir uma opção de CONTROLE de HORARIO no nível de tarefa (determina quando o sistema permite ou não tarefas antes ou após horário determinado. 20min
+    ✔ Incluir nos cadastros (locais e Usuários) uma opção de inativar (ocultar das buscas) : 40min @done(19-08-17 14:32)
+    ✔ Inserir um relógio regressivo na tela da tarefa : 40min @done(19-08-17 14:32)
+    ✔ Habilitar o botão REALIZAR TESTE restando 5 minutos ou menos. (quando horário na tarefa for controlado) 30min @done(19-08-17 14:32)
+    ✔ Inserir uma opção de CONTROLE de HORARIO no nível de tarefa (determina quando o sistema permite ou não tarefas antes ou após horário determinado. 20min @done(19-08-17 14:32)
 
