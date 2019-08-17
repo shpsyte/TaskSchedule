@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskSchedule.Data;
@@ -17,23 +18,39 @@ namespace TaskSchedule.Controllers {
   [Authorize (Policy = "ADMIN")]
   public class UserController : BaseController {
 
-    public UserController (UserManager<ApplicationUser> userManager, ApplicationDbContext context, ILogger<UserController> logger, IUser currentUser) : base (userManager, context, logger, currentUser) { }
+    public RoleManager<ApplicationRole> _roles;
+
+    public UserController (
+      UserManager<ApplicationUser> userManager,
+      ApplicationDbContext context,
+      ILogger<UserController> logger, IUser currentUser, RoleManager<ApplicationRole> roles) : base (userManager, context, logger, currentUser) {
+      this._roles = roles;
+    }
 
     [BindProperty]
     public UserModel Input { get; set; }
 
     public IActionResult List () {
-      var users = _userManager.Users.Where (a => a.EmailConfirmed == false).ToList ();
+      var users = _userManager.Users.ToList ();
+
+      users.ForEach (async user => {
+        var userRoles = await _userManager.GetRolesAsync (user);
+        user.IsAdmin = userRoles.Contains ("ADMINISTRATOR");
+      });
       return View (users);
     }
 
     public IActionResult Add () {
+      ViewData["RoleID"] = new SelectList (_roles.Roles.ToList (), "Id", "Name");
+
       return View (new UserModel ());
     }
 
     [HttpPost]
     public async Task<IActionResult> Add (UserModel p) {
       // first add User
+      ViewData["RoleID"] = new SelectList (_roles.Roles.ToList (), "Id", "Name");
+      var _name = await _roles.FindByIdAsync (p.RoleID.ToString ());
 
       if (ModelState.IsValid) {
         var user = new ApplicationUser {
@@ -48,7 +65,8 @@ namespace TaskSchedule.Controllers {
         if (result.Succeeded) {
 
           _logger.LogInformation ("User created a new account with password.");
-          _userManager.AddToRoleAsync (user, "SUPERVISOR").Wait ();
+          _userManager.AddToRoleAsync (user, _name.Name.ToUpper ()).Wait ();
+          // _userManager.AddToRoleAsync (user, "SUPERVISOR").Wait ();
         }
 
         foreach (var error in result.Errors) {
@@ -67,10 +85,17 @@ namespace TaskSchedule.Controllers {
         return RedirectToAction ("List", "User");
       }
 
+      var userRoles = await _userManager.GetRolesAsync (user);
+      user.IsAdmin = userRoles.Contains ("ADMINISTRATOR");
+
+      ViewData["RoleID"] = new SelectList (_roles.Roles.ToList (), "Id", "Name", user.IsAdmin ? 1 : 2);
+
       var data = new UserModel () {
         Name = user.Name,
         Email = email,
-        PasswordTip = user.PasswordTip
+        PasswordTip = user.PasswordTip,
+        EmailConfirmado = user.EmailConfirmed,
+        RoleID = user.IsAdmin ? 1 : 2
       };
 
       return View (data);
@@ -79,11 +104,14 @@ namespace TaskSchedule.Controllers {
 
     [HttpPost]
     public async Task<ActionResult> SetPassWord (UserModel p) {
+
       var user = await _userManager.FindByNameAsync (p.Email);
 
       if (user == null) {
         return RedirectToAction ("index", "home");
       }
+
+      ViewData["RoleID"] = new SelectList (_roles.Roles.ToList (), "Id", "Name", p.RoleID);
 
       var data = new UserModel () {
         Name = user.Name,
@@ -94,10 +122,24 @@ namespace TaskSchedule.Controllers {
         var newPassword = _userManager.PasswordHasher.HashPassword (user, p.Password);
 
         user.PasswordHash = newPassword;
+        user.EmailConfirmed = false;
         var res = await _userManager.UpdateAsync (user);
 
         if (res.Succeeded) {
           _logger.LogInformation ("User created a new account with password.");
+
+          var _name = await _roles.FindByIdAsync (p.RoleID.ToString ());
+          var roles = _roles.Roles.ToList ();
+
+          //retirar das roles
+          roles.ForEach (role => {
+            _userManager.RemoveFromRoleAsync (user, role.Name.ToUpper ()).Wait ();
+          });
+
+          // adicionar na roel selecioanda
+          _userManager.AddToRoleAsync (user, _name.Name.ToUpper ()).Wait ();
+          // _userManager.AddToRoleAsync (user, "SUPERVISOR").Wait ();
+
         } else {
           foreach (var error in res.Errors) {
             ModelState.AddModelError (string.Empty, error.Description);

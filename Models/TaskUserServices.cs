@@ -33,6 +33,7 @@ namespace TaskSchedule.Models {
       var dataUser = _context.TaskUser
         .Where (a => a.Done == p.done)
         .Include (a => a.User)
+        .Include (a => a.Location)
         .AsNoTracking ()
         .AsQueryable ();
 

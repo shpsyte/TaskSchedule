@@ -67,6 +67,9 @@ namespace TaskSchedule.Domain {
 
     public bool IsDeleted { get; set; }
 
+    [Display (Name = "Controlado por Horário")]
+    public bool IsHourControl { get; set; }
+
     [Display (Name = "Local da Prova")]
     public Nullable<int> LocationId { get; set; }
 
@@ -83,6 +86,26 @@ namespace TaskSchedule.Domain {
         start = start.Add (interval);
       }
       return timeSpans;
+    }
+
+    public string GetUrlFromCalendar () {
+      string url = "";
+
+      url = "https://calendar.google.com/calendar/r/eventedit";
+      url += "?text=" + this.FundationName + ".: (" + this.StudentId + "): " + this.StudentName;
+      url += "&details=" + " <b>Instituição:</b> " + this.FundationName + "%0A" +
+        " <b>ID do Estudante:</b> " + this.StudentId + "%0A" +
+        " <b>Estudande:</b> " + this.StudentName + "%0A" +
+        " <b>Responsavel:</b> " + this.User.Name + "%0A" +
+        " <b>Fone:</b> " + this.Location.Phone + "%0A" +
+        " <b>Endereco:</b> " + this.Location.FullAddress () + "%0A" +
+        " <b>WebSite:</b> " + this.Link;
+      url += "&location=" + this.Location.FullAddress ();
+      url += "&dates=" + this.DateOfTest.ToString ("yyyyMMddThhmmss") + "/" + this.DateOfTest.AddMinutes (60).ToString ("yyyyMMddThhmmss");
+      url += "&sprop=website:" + this.Link + "&sprop=name:" + this.FundationName;
+      url += " & trp = true ";
+
+      return url;
     }
 
   }

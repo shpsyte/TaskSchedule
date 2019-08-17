@@ -18,7 +18,7 @@ namespace TaskSchedule.Controllers {
     [BindProperty]
     public Location Input { get; set; }
     public IActionResult List () {
-      var data = _context.Location.Where (a => a.IsDeleted == false).ToListAsync ();
+      var data = _context.Location.ToListAsync ();
       return View (data.Result);
     }
 

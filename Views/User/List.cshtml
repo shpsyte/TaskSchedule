@@ -14,14 +14,16 @@
             <th data-class="expand"> Nome</th>
             <th data-hide="phone"> Email</th>
             <th data-hide="phone"> Fone</th>
+            <th data-hide="phone"> Admin</th>
+            <th data-hide="ativo"> Ativo</th>
           </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                  <tr>
+                  <tr class=@( item.EmailConfirmed ? "text-red" : "")>
                       <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                         <a href=@Url.Action("SetPassWord", new {email = @item.Email })>@item.Name</a>
                       </td>
                       <td>
                         <a href=@Url.Action("SetPassWord", new {email = @item.Email })>@item.Email</a>
@@ -29,6 +31,10 @@
                       <td>
                           @Html.DisplayFor(modelItem => item.PhoneNumber)
                       </td>
+                       <td>
+                         @Html.DisplayFor(modelItem => item.IsAdmin)
+                      </td>
+                      <td><input checked="@item.IsAtivo()" class="check-box" disabled="disabled" type="checkbox"></td>
                   </tr>
                 }
               </tbody>

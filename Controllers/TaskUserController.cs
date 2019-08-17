@@ -60,8 +60,8 @@ namespace TaskSchedule.Controllers {
     public async Task<IActionResult> Edit (TaskUser p, string submit) {
 
       ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
-      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
-      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
+      ViewData["UserId"] = new SelectList (_userManager.Users.Where (a => a.EmailConfirmed == false).ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.Where (a => a.IsDeleted == false).ToList (), "Id", "FundationName");
 
       if (ModelState.IsValid) {
 
@@ -78,8 +78,8 @@ namespace TaskSchedule.Controllers {
     }
     public IActionResult Add () {
       ViewData["Time"] = new SelectList (TaskUser.TimeSpansInRange (TimeSpan.Parse ("00:00"), TimeSpan.Parse ("23:45"), TimeSpan.Parse ("00:15")));
-      ViewData["UserId"] = new SelectList (_userManager.Users.ToList (), "Id", "Name");
-      ViewData["LocationId"] = new SelectList (_context.Location.ToList (), "Id", "FundationName");
+      ViewData["UserId"] = new SelectList (_userManager.Users.Where (a => a.EmailConfirmed == false).ToList (), "Id", "Name");
+      ViewData["LocationId"] = new SelectList (_context.Location.Where (a => a.IsDeleted == false).ToList (), "Id", "FundationName");
       return View ();
     }
 
@@ -95,7 +95,8 @@ namespace TaskSchedule.Controllers {
           StudentName = Input.StudentName,
           UserId = Input.UserId,
           LocationId = Input.LocationId,
-          IsDeleted = false
+          IsDeleted = false,
+          IsHourControl = Input.IsHourControl
         };
 
         if (Input.LocationId.HasValue) {

@@ -73,7 +73,10 @@
 
             </div>
             <button type="submit" name="submit" class="btn btn-tdco" value="Save">Alterar</button>
-            <button onclick="return confirm('Deseja realmente excluir este locação?');" type="submit" name="submit" class="btn btn-danger  pull-right" value="Delete">Excluir</button>
+            <button onclick="return confirm('Deseja realmente desativar/ativar este locação?');" type="submit" name="submit" class="btn btn-danger  pull-right" value="@(Model.IsDeleted ? "Reativar" : "Delete")">
+                @(Model.IsDeleted ? "Reativar" : "Desativar")
+
+            </button>
             <a class="btn btn-info" asp-action="List">Lista</a>
         </form>
   </div>

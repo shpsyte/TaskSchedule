@@ -118,6 +118,9 @@
                 <th class="text-center">
                   Finalizado?
                 </th>
+                <th class="text-center">
+                  Controlado
+                </th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -147,6 +150,9 @@
                 <td class="text-center">
                   @Html.DisplayFor(modelItem => item.Done)
                 </td>
+                <td class="text-center">
+                  @Html.DisplayFor(modelItem => item.IsHourControl)
+                </td>
                   <td>
                   <a class="btn btn-tdco btn-sm" asp-action="Details" asp-route-id="@item.Id">Ver</a>
 
@@ -154,6 +160,10 @@
                   {
                     <a class="btn btn-info btn-sm" href="TaskUser/Edit/@item.Id">Editar</a>
                   }
+
+                  <a class="btn btn-write btn-sm" href="@item.GetUrlFromCalendar()"
+                  target="_blank" ><i class="fa fa-calendar"></i></a>
+
                 </td>
 
               </tr>

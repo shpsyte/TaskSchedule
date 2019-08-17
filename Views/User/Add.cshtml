@@ -22,6 +22,14 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
+             <div class="form-group">
+                <label asp-for="RoleID"></label>
+                <select asp-for="RoleID" class ="form-control col-md-6" asp-items="ViewBag.RoleID"></select>
+                <span asp-validation-for="RoleID" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Password"></label>
                 <input asp-for="Password" class="form-control col-md-6" />

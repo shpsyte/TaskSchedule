@@ -30,5 +30,10 @@ namespace TaskSchedule.Models {
 
     [Display (Name = "Telefone")]
     public string PhoneNumber { get; set; }
+
+    public bool EmailConfirmado { get; set; }
+
+    [Display (Name = "Função")]
+    public int RoleID { get; set; }
   }
 }

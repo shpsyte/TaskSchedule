@@ -52,11 +52,23 @@
             </div>
 
 
-             <div class="form-group paceb">
-                <label asp-for="UserId"></label>
-                <select asp-for="UserId" class ="form-control col-md-6" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
+             <div class="row paceb">
+
+                <div class="col">
+                  <label asp-for="UserId"></label>
+                  <select asp-for="UserId" class ="form-control col-md-6" asp-items="ViewBag.UserId"></select>
+                  <span asp-validation-for="UserId" class="text-danger"></span>
+
+                </div>
+                <div class="col">
+                   <input asp-for="IsHourControl" class="form-check-input" type="checkbox"  >
+                  <label asp-for="IsHourControl"></label>
+                </div>
             </div>
+
+
+
+
             <button type="submit" class="btn btn-tdco">Registrar</button>
             <a class="btn btn-info" asp-action="List">Lista</a>
 

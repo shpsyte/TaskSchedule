@@ -72,6 +72,11 @@ body {
   color: #3154a5 !important;
 }
 
+.text-red {
+  background-color: #d8898938;
+  color: #000 !important;
+}
+
 .card .card-header-tdco {
   box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2),
     0 13px 24px -11px rgba(76, 175, 80, 0.6);
@@ -155,6 +160,69 @@ body {
     0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2);
 }
 
+.btn.btn-write {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn.btn-write:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn.btn-write:focus,
+.btn.btn-write.focus,
+.btn.btn-write:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn.btn-write:active,
+.btn.btn-write.active,
+.open > .btn.btn-write.dropdown-toggle,
+.show > .btn.btn-write.dropdown-toggle {
+  color: #000;
+  background-color: #fff;
+
+  box-shadow: 0 2px 2px 0 rgba(0, 188, 212, 0.14),
+    0 3px 1px -2px rgba(0, 188, 212, 0.2), 0 1px 5px 0 rgba(0, 188, 212, 0.12);
+}
+
+.btn.btn-write:active:hover,
+.btn.btn-write:active:focus,
+.btn.btn-write:active.focus,
+.btn.btn-write.active:hover,
+.btn.btn-write.active:focus,
+.btn.btn-write.active.focus,
+.open > .btn.btn-write.dropdown-toggle:hover,
+.open > .btn.btn-write.dropdown-toggle:focus,
+.open > .btn.btn-write.dropdown-toggle.focus,
+.show > .btn.btn-write.dropdown-toggle:hover,
+.show > .btn.btn-write.dropdown-toggle:focus,
+.show > .btn.btn-write.dropdown-toggle.focus {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn.btn-write.disabled:focus,
+.btn.btn-write.disabled.focus,
+.btn.btn-write:disabled:focus,
+.btn.btn-write:disabled.focus {
+  background-color: #fff;
+}
+
+.btn.btn-write.disabled:hover,
+.btn.btn-write:disabled:hover {
+  background-color: #fff;
+}
+
+.btn.btn-write:focus,
+.btn.btn-write:active,
+.btn.btn-write:hover {
+  box-shadow: 0 14px 26px -12px rgba(0, 188, 212, 0.42),
+    0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2);
+}
+
 a {
   color: #3154a5;
 }
@@ -168,4 +236,32 @@ a {
 .nav-pills .nav-item .nav-link.active {
   color: #fff;
   background-color: #09276d !important;
+}
+
+.disableWin {
+  pointer-events: none;
+}
+
+.modal-lgs {
+  max-width: 1054px;
+}
+.modals .modal-dialogs {
+  margin-top: 10px !important;
+}
+
+.contador {
+  font-weight: 900;
+
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  background: #ddd;
+  border: 1px solid #999;
+  padding: 10px;
+  box-shadow: 0 0 5px 3px #ccc;
+}
+
+.contador span {
+  color: red;
 }

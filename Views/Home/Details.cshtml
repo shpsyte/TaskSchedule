@@ -4,21 +4,38 @@
 }
 
 
-<div class="card">
+<div  class="card">
   <div class="card-body">
     <h3 class="card-title"> @Model.Location.FundationName: (@Model.StudentId): @Model.StudentName  </h3>
-    <h6 class="card-subtitle mb-2 text-muted">@Model.User.Name</h6>
+    <h6 class="card-subtitle mb-2 text-muted">@Model.User.Name, Esta tarefa @(Model.IsHourControl ? "é" : "NÃO") Controlada!</h6>
     <!-- <p class="card-text"> @Model.Location.FullAddress() </p> -->
-
+      @Html.HiddenFor(a => a.DateOfTest)
+      @Html.HiddenFor(a => a.IsHourControl)
     <hr>
-    <h3>Datas</h3>
-    <p class="card-text">  <label asp-for="DateOfCreate"></label> @Model.DateOfCreate.ToString("dd/MM/yyyy hh:mm tt")  </p>
-    <p class="card-text">  <label asp-for="DateOfTest"></label> @Model.DateOfTest.ToString("dd/MM/yyyy hh:mm tt")  </p>
+    <div class="row">
+      <div class="col-md-6">
+            <h3>Datas</h3>
+            <p class="card-text">  <label asp-for="DateOfCreate"></label> @Model.DateOfCreate.ToString("dd/MM/yyyy hh:mm tt")  </p>
+            <p class="card-text">  <label asp-for="DateOfTest"></label> @Model.DateOfTest.ToString("dd/MM/yyyy hh:mm tt")  </p>
 
-    @if (Model.DateOfEnd.HasValue)
-    {
-      <p class="card-text">  <label asp-for="DateOfEnd"></label> @Model.DateOfEnd.Value.ToString("dd/MM/yyyy hh:mm tt")  </p>
-    }
+            @if (Model.DateOfEnd.HasValue)
+            {
+              <p class="card-text">  <label asp-for="DateOfEnd"></label> @Model.DateOfEnd.Value.ToString("dd/MM/yyyy hh:mm tt")  </p>
+            }
+      </div>
+      <div class="col-md-6 mb-5">
+         <h3> </h3>
+         <span   class="h1 contador">
+            <span id="contador">
+
+         </span>
+         </span>
+
+
+
+      </div>
+    </div>
+
 
     <hr>
     <h3>Local do teste</h3>
@@ -29,20 +46,71 @@
 
     <!-- <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a></p> -->
 
-
     <hr>
     <h3>Ações</h3>
      <form asp-action="Done" method="post">
-       <p class="card-text"><a class="btn btn-tdco" href="@Model.Link" target="_blank">Realizar Teste</a>
-        @Html.HiddenFor(a => a.Id)
+
+<!-- <a class="btn btn-tdco" href="@Model.Link" target="_blank">Realizar Teste</a> -->
+
+  <a id="btbRealizarTarefa"  class="btn btn-tdco disabled" href="#" data-toggle="modal" data-target="#modalFrame">Realizar Teste</a>
+
+
+          <!-- <a href="javascript:void(0);"
+            class="btn btn-tdco"
+            data-url="@Model.Link"
+            target="_parent"
+            onClick="openWindows(this)">Realizar Teste</a> -->
+
+
+           @Html.HiddenFor(a => a.Id)
            @if (!Model.Done)
            {
               <button type="submit" class="btn btn-tdco">Concluir a Tarefa</button>
-            }
+           }
       <a class="btn btn-info" asp-action="Index" asp-contoller="Home">Voltar</a>
     </form>
 
 
   </div>
 </div>
+<!-- Modal -->
+
+<div class="modal modals fade bd-example-modal-lg" id="modalFrame" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialogs modal-lgs" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span><b>TDCO - TASK<b></span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post">
+       <div class="modal-body">
+
+        <iframe id="iMainFrame" width=1024 height=768 scrolling="auto"
+          frameborder="1" src="@Model.Link"
+          style="border: 0px none #ffffff;" name="national-campaign"
+          marginheight="0px" marginwidth="0px">
+        </iframe>
+
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+        </div> -->
+      </form>
+    </div>
+  </div>
+</div>
+
+
+@section Scripts {
+<script>
+
+  atualizaContador();
+</script>
+
+}
+
 

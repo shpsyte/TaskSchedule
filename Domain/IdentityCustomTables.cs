@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace TaskSchedule.Domain {
@@ -7,6 +8,13 @@ namespace TaskSchedule.Domain {
     public byte[] Photo { get; set; }
     public virtual List<TaskUser> TaskUser { get; set; }
     public string PasswordTip { get; set; }
+
+    public bool IsAtivo () {
+      return !this.EmailConfirmed;
+    }
+
+    [NotMapped]
+    public bool IsAdmin { get; set; }
 
   }
 

@@ -14,16 +14,18 @@
             <th data-hide="phone"> Address</th>
             <th data-hide="phone"> Fone</th>
             <th data-hide="phone"> Responsável</th>
+            <th data-hide="phone"> Ativo</th>
           </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                  <tr>
+                   <tr class=@(item.IsDeleted ? "text-red" : "")>
                       <td>@Html.DisplayFor(modelItem => item.FundationName)</td>
                       <td>@item.FullAddress()</td>
                       <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                       <td>@Html.DisplayFor(modelItem => item.Responsible)</td>
+                      <td><input checked="@item.IsAtivo()" class="check-box" disabled="disabled" type="checkbox"></td>
                        <td class="text-center"><a class="btn btn-tdco btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a> </td>
 
                   </tr>

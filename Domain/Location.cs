@@ -46,6 +46,10 @@ namespace TaskSchedule.Domain {
 
     public bool IsDeleted { get; set; }
 
+    public bool IsAtivo () {
+      return !this.IsDeleted;
+    }
+
     public virtual List<TaskUser> TaskUser { get; set; }
 
     public string FullAddress () =>
