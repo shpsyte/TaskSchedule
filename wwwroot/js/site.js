@@ -49,7 +49,7 @@ function atualizaContador() {
       btnRealiza.classList.remove('disabled')
     }
   } else {
-    document.getElementById('contador').innerHTML = 'Realize a tarefa..'
+    document.getElementById('contador').innerHTML = 'Realizar teste.'
     btnRealiza.classList.remove('disabled')
     setTimeout(atualizaContador, 1000)
   }
