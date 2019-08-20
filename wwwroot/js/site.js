@@ -45,7 +45,7 @@ function atualizaContador() {
     document.getElementById('contador').innerHTML = faltam
     setTimeout(atualizaContador, 1000)
 
-    if (isControlado === 'False' || (dd === 0 && hh === 0 && mm <= 05)) {
+    if (isControlado === 'False' || (dd === 0 && hh === 0 && mm <= 04)) {
       btnRealiza.classList.remove('disabled')
     }
   } else {
