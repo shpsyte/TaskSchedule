@@ -109,7 +109,7 @@
                 <th>
                   Aluno
                 </th>
-                <th>
+                <th style="width:140px">
                   Data do Teste
                 </th>
                  <!-- <th>
@@ -121,7 +121,7 @@
                 <th class="text-center">
                   Controlado
                 </th>
-                <th>Ações</th>
+                <th style="width:230px">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -134,7 +134,7 @@
                 </td>
 
                 <td>
-                  @Html.DisplayFor(modelItem => item.FundationName)
+                  @Html.DisplayFor(modelItem => item.Location.FundationName)
                 </td>
                 <td>
                   @Html.DisplayFor(modelItem => item.StudentName)
